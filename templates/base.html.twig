@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}My note hub{% endblock %}</title>
+        {% block stylesheets %}
+        {#{{ encore_entry_link_tags('style') }}#}
+        {% endblock %}
+    </head>
+    <body class="is-family-primary">
+    {% block body %}
+        <div id="auth" data-user-authenticated="{{ user_authenticated }}" ></div>
+        <div id="app"></div>
+    {% endblock %}
+    {% block javascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.js"></script>
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    </body>
+</html>
