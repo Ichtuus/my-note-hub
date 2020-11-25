@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "strict": true,
+        "module": "ES6",
+        "moduleResolution": "Node",
+        "types": [
+            "@types/jest"
+        ],
+        "importHelpers": true,
+        "experimentalDecorators": true,
+        "esModuleInterop": true
+    },
+    "include": ["./assets/app/**/*","./tests/unit/**/*"]
+}

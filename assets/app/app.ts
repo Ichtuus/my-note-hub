@@ -1,9 +1,13 @@
-import 'babel-polyfill';
-import Vue from "vue";
+import 'babel-polyfill'
+import Vue from "vue"
 import axios from 'axios'
+import Buefy from 'buefy'
 
-import App from "./App";
+import 'buefy/dist/buefy.css'
 
+import App from "./App"
+
+Vue.use(Buefy)
 
 axios.defaults.withCredentials = true;
 
