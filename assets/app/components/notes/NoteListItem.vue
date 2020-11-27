@@ -10,13 +10,13 @@
       {{ note.content }}
     </template>
     <template v-slot:first-content-link>
-      {{ note.first_link }}
+      <a :href="note.first_link">First link</a>
     </template>
     <template v-slot:second-content-link>
-      {{ note.second_link }}
+      <a :href="note.second_link">Second link</a>
     </template>
     <template v-slot:third-content-link>
-      {{ note.third_link }}
+      <a :href="note.third_link">Third link</a>
     </template>
     <template v-slot:date>
       <time datetime="2016-1-1">{{ note.note_date }}</time>
@@ -32,6 +32,6 @@ import NoteSkeleton from "./NoteSkeleton.vue"
   components: { NoteSkeleton }
 })
 export default class NoteListItem extends Vue {
-  @Prop( { type: Object, required: true }) readonly note: any
+  @Prop( { type: Object, required: true } ) readonly note: any
 }
 </script>
