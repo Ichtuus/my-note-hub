@@ -24,6 +24,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addStyleEntry('style', './assets/styles/scss/main.scss')
+    .addStyleEntry('typo', './assets/styles/typo/typo.css')
     .addEntry('app', './assets/app/app.ts')
 
     //.addEntry('page1', './assets/js/page1.js')
