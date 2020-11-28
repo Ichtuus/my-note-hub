@@ -4,7 +4,7 @@
       {{ note.note_title }}
     </template>
     <template v-slot:content-text>
-      {{ note.note_first_link }}
+      {{ note.note_content }}
     </template>
     <template v-slot:first-content-link>
       <a :href="note.note_first_link">First link</a>

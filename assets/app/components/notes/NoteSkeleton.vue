@@ -12,7 +12,7 @@
     </header>
     <div class="card-content">
       <div class="content">
-        <slot name="content-text"></slot>
+        <slot name="content-text"></slot><br>
         <slot name="first-content-link"></slot> <slot name="second-content-link"></slot> <slot name="third-content-link"></slot>
         <br>
         <slot name="date"></slot>

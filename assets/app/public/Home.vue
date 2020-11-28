@@ -2,8 +2,8 @@
   <div class="columns">
     <div class="column is-1"></div>
     <div class="column is-10">
-      <header-app class="mb-5"/>
-      <note-list/>
+      <header-app class="mb-6"/>
+      <note-list class="mt-6"/>
     </div>
     <div class="column is-1"></div>
   </div>
