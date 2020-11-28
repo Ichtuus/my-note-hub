@@ -31,6 +31,16 @@ services:
       - caddy_data:/data
       - caddy_config:/config
 
+  mercure:
+    image: dunglas/mercure
+    ports:
+      - '3000:80'
+    environment:
+      - JWT_KEY=${MERCURE_JWT_TOKEN}
+      - PUBLISH_ALLOWED_ORIGINS=*
+      - CORS_ALLOWED_ORIGINS=http://my-note-hub.localhost:8000
+      - DEBUG=1
+
 ###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-13}-alpine
