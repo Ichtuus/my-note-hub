@@ -1,4 +1,4 @@
-import { IModal } from './modals'
+import { INote } from './note'
 export {
-    IModal
+    INote
 }

@@ -3,12 +3,13 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const debug = process.env.NODE_ENV !== 'production'
+import note from './modules/note'
 
+const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
   modules: {
-
+    note
   },
   strict: debug,
 })
