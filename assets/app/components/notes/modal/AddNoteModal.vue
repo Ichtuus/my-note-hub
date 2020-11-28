@@ -1,40 +1,47 @@
 <template>
-  <b-modal ref="add-note-modal" v-model="isActive" :width="640" scroll="keep">
-    <div class="card">
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <figure class="image is-48x48">
-              <img src="/static/img/placeholder-1280x960.png" alt="Image">
-            </figure>
-          </div>
-          <div class="media-content">
-            <p class="title is-4">John Smith</p>
-            <p class="subtitle is-6">@johnsmith</p>
-          </div>
-          <b-button @click="close($myModalConst('ADD'))">close</b-button>
-        </div>
+  <div class="modal-card" style="width: auto">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Login</p>
+      <button
+          type="button"
+          class="delete"
+          @click="$emit('close')"/>
+    </header>
+    <section class="modal-card-body">
+      <b-field label="Email">
+        <b-input
+            type="email"
+            :value="email"
+            placeholder="Your email"
+            required>
+        </b-input>
+      </b-field>
 
-        <div class="content">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-          <a>#css</a> <a>#responsive</a>
-          <br>
-          <small>11:09 PM - 1 Jan 2016</small>
-        </div>
-      </div>
-    </div>
-  </b-modal>
+      <b-field label="Password">
+        <b-input
+            type="password"
+            :value="password"
+            password-reveal
+            placeholder="Your password"
+            required>
+        </b-input>
+      </b-field>
+
+      <b-checkbox>Remember me</b-checkbox>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button" type="button" @click="$emit('close')">Close</button>
+      <button class="button is-primary">Login</button>
+    </footer>
+  </div>
 </template>
 
 <script lang="ts">
-import {Component, Prop, Mixins} from 'vue-property-decorator'
-import {ModalManager} from '../../../mixins/modal/modalManager'
+import {Vue, Component} from 'vue-property-decorator'
 
 @Component({
   components: {  },
 })
-export default class AddNoteModal extends  Mixins(ModalManager) {
-  @Prop( { type: Boolean | undefined, required: true } ) readonly isActive: boolean
+export default class AddNoteModal extends Vue {
 }
 </script>

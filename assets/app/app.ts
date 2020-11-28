@@ -5,13 +5,11 @@ import axios from 'axios'
 import Buefy from 'buefy'
 
 import store from "./store"
-import myModalConst from './constants/plugins/myModal'
 
 import 'buefy/dist/buefy.css'
 
 
 Vue.use(Buefy)
-Vue.use(myModalConst);
 
 axios.defaults.withCredentials = true
 

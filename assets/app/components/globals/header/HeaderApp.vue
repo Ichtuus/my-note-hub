@@ -26,11 +26,10 @@
       <b-navbar-item style="margin-left: 260px">
         <div class="buttons">
           <button class="button is-primary is-medium"
-                  @click="open($myModalConst('ADD'))">
+                  @click="cardModal()">
             <i class="fas fa-plus"></i>
           </button>
         </div>
-        <i class="fas fa-plus"></i>
       </b-navbar-item>
     </template>
 
@@ -47,25 +46,23 @@
       </b-navbar-item>
     </template>
   </b-navbar>
-    <add-note-modal :isActive="isActive"/>
   </div>
 </template>
 
 <script lang="ts">
-import {Vue, Component, Mixins} from 'vue-property-decorator'
+import {Vue, Component} from 'vue-property-decorator'
 import AddNoteModal from '../../notes/modal/AddNoteModal.vue'
-import {ModalManager} from '../../../mixins/modal/modalManager'
 
 @Component({
   components: { AddNoteModal },
-  computed: {
-    isActive() {
-      return this.$store.getters['myModals/isActive'] (!this.currentModal ? 'default' : this.currentModal)
-    },
-    currentModal() {
-      return this.$store.getters['myModals/currentModal']
-    }
-  },
+  computed: {},
 })
-export default class HeaderApp extends Mixins(ModalManager) {}
+export default class HeaderApp extends Vue {
+  cardModal() {
+    this.$buefy.modal.open({
+      parent: this,
+      component: AddNoteModal,
+    })
+  }
+}
 </script>
