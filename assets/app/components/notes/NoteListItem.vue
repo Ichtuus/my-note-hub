@@ -1,22 +1,19 @@
 <template>
   <note-skeleton>
     <template v-slot:header>
-      {{ note.title }}
+      {{ note.note_title }}
     </template>
     <template v-slot:content-text>
-      {{ note.content }}
-    </template>
-    <template v-slot:content-text>
-      {{ note.content }}
+      {{ note.note_first_link }}
     </template>
     <template v-slot:first-content-link>
-      <a :href="note.first_link">First link</a>
+      <a :href="note.note_first_link">First link</a>
     </template>
     <template v-slot:second-content-link>
-      <a :href="note.second_link">Second link</a>
+      <a :href="note.note_second_link">Second link</a>
     </template>
     <template v-slot:third-content-link>
-      <a :href="note.third_link">Third link</a>
+      <a :href="note.note_third_link">Third link</a>
     </template>
     <template v-slot:date>
       <time datetime="2016-1-1">{{ note.note_date }}</time>
