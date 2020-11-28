@@ -82,7 +82,7 @@ export default class AddNoteModal extends Vue {
       note_second_link: this.note_second_link,
       note_third_link: this.note_third_link
     }
-    getModule(NoteModule, this.$store).add({payload})
+    getModule(NoteModule, this.$store).add(payload)
   }
 }
 </script>

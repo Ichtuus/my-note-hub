@@ -2,7 +2,7 @@ import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 
 import modules from '../modules'
 import { mutations as m } from './constants'
-import {INote} from '../../models/notes'
+import {INote} from '../../models/note'
 
 @Module({ namespaced: true, name: modules.note, stateFactory: true })
 export default class NoteModule extends VuexModule {
@@ -16,13 +16,13 @@ export default class NoteModule extends VuexModule {
     }
 
     @Action
-    add({payload}): void {
-        this.context.commit(m.UPDATE_NOTE_LIST, {payload})
+    add(payload: INote): void {
+        this.context.commit(m.UPDATE_NOTE_LIST, payload)
     }
 
     @Mutation
-    [m.UPDATE_NOTE_LIST] ({payload}): void {
-        console.log('mutate', payload)
+    [m.UPDATE_NOTE_LIST] (payload: INote): void {
+        this._note = payload
     }
 
     get notes() {
