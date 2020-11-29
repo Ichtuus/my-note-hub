@@ -19,9 +19,9 @@ export default class NoteList extends Vue {
       id: 1,
       note_title: 'My first note',
       note_content: 'An custom test content',
-      first_link: 'www.google.com',
-      second_link: null,
-      third_link: 'www.phpnet.com',
+      note_first_link: 'www.google.com',
+      note_second_link: null,
+      note_third_link: 'www.phpnet.com',
       note_date: '11:09 PM - 1 Jan 2016'
     },
     {
