@@ -23,16 +23,25 @@ class User implements UserInterface
     private $id;
     /**
      * @ORM\Column(type="string", length=25, unique=true)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 25,
+     *      minMessage = "Your username must be at least {{ limit }} characters long",
+     *      maxMessage = "Your username cannot be longer than {{ limit }} characters"
+     * )
      * @Assert\NotBlank
      */
-    private $username;
+    private string $username;
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      */
-    private $password;
+    private string $password;
     /**
      * @ORM\Column(type="string", length=45, unique=true)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      * @Assert\NotBlank
      */
     private $email;
@@ -48,14 +57,14 @@ class User implements UserInterface
      * @var Hub
      * @Assert\NotBlank()
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Hub\Hub")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Hub\Hub", cascade={"persist"})
      * @ORM\JoinColumn(name="hub_id", referencedColumnName="id", nullable=false)
      */
-    private $hub;
+    private Hub $hub;
     /**
      * @var HubUserRole[]
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Hub\HubUserRole", mappedBy="user", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="App\Entity\Hub\HubUserRole", mappedBy="user", fetch="EAGER", cascade={"persist"})
      * @ORM\OrderBy({"creationDatetime" = "DESC"})
      */
     private $hubsUserRoles;
