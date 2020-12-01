@@ -52,7 +52,7 @@ class AuthUserController extends AbstractController
         SerializerInterface $serializer
     ) {
         $data = $serializer->deserialize($request->getContent(),User::class, 'json');
-
+        dump($data); die();
         $user = $this->userCreationProcedure->process($data);
         $errors = $this->validator->validate($user);
 

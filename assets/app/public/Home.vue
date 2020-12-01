@@ -15,7 +15,9 @@ import NoteList from '../components/notes/NoteList.vue'
 import HeaderApp from '../components/globals/header/HeaderApp.vue'
 
 @Component({
-  components: { NoteList, HeaderApp }
+  components: { NoteList, HeaderApp },
+  mounted() {
+  }
 })
 export default class Home extends Vue {
 }
