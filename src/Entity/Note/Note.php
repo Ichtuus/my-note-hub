@@ -87,6 +87,9 @@ class Note
      */
     private User $creator;
 
+    /**
+     * Note constructor.
+     */
     public function __construct()
     {
         $this->creationDatetime = new \DateTime();
