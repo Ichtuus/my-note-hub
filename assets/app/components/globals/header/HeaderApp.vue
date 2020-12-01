@@ -27,7 +27,7 @@
           <b-navbar-item style="margin-left: 260px">
             <div class="buttons">
               <button class="button is-primary is-medium"
-                      @click="cardModal()">
+                      @click="addNoteModal()">
                 <i class="fas fa-plus"></i>
               </button>
             </div>
@@ -37,12 +37,12 @@
         <template slot="end">
           <b-navbar-item tag="div">
             <div class="buttons">
-              <a class="button is-primary">
+              <button @click="registrationModal()" class="button is-primary">
                 <strong>Sign up</strong>
-              </a>
-              <a class="button is-light">
+              </button>
+              <button @click="loginModal()" class="button is-light">
                 Log in
-              </a>
+              </button>
             </div>
           </b-navbar-item>
         </template>
@@ -54,13 +54,27 @@
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator'
 import AddNoteModal from '../../notes/modal/AddNoteModal.vue'
-
+import RegistrationModal from '../../../public/user/account/modal/RegistrationModal.vue'
+// import LoginModal from '../../../public/user/account/modal/LoginModal.vue'
+// LoginModal
 @Component({
-  components: { AddNoteModal },
+  components: { AddNoteModal, RegistrationModal },
   computed: {},
 })
 export default class HeaderApp extends Vue {
-  cardModal() {
+  addNoteModal() {
+    this.$buefy.modal.open({
+      parent: this,
+      component: AddNoteModal,
+    })
+  }
+  registrationModal() {
+    this.$buefy.modal.open({
+      parent: this,
+      component: RegistrationModal,
+    })
+  }
+  loginModal() {
     this.$buefy.modal.open({
       parent: this,
       component: AddNoteModal,
