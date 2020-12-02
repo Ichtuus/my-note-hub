@@ -35,10 +35,10 @@ security:
             provider: app_user_provider
             form_login:
                 login_path: /user/me/login
-                check_path: user_login
+                check_path: mnh_user_login
 
             logout:
-                path: user_logout
+                path: mnh_user_logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

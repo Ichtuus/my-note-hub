@@ -1,26 +1,20 @@
 import Axios from 'axios'
 import IUser from '../../store/models/user'
-
-interface RequestInterface {
-    id: string,
-    email: string,
-    username: string,
-    hub: object,
-    user_authenticated: boolean
-}
+import {IAuthRequestInterface} from '../interfaces/user/authentification'
+import {IInformationRequestInterface} from '../interfaces/user/information'
 
 export abstract class UserApi {
     private static userAxios = Axios.create()
 
     static async registrationProcess(payload: IUser): Promise<IUser>{
-        let response = await this.userAxios.post<RequestInterface>(Routing.generate('mnh_user_register'), {
+        return await this.userAxios.post<IAuthRequestInterface>( Routing.generate( 'mnh_user_register' ), {
             username: payload.username,
             email: payload.email,
             password: payload.password
         })
-        console.log('res api', response.data)
-
     }
 
-
+    static async userInformation() {
+        return await this.userAxios.get<IInformationRequestInterface>( Routing.generate( 'mnh_api_user_information' ))
+    }
 }

@@ -14,7 +14,7 @@
             Home
           </b-navbar-item>
           <b-navbar-item href="#">
-            Documentation
+            Documentation ooo {{userAuthenticated}}
           </b-navbar-item>
           <b-navbar-dropdown label="Info">
             <b-navbar-item href="#">
@@ -55,13 +55,24 @@
 import {Vue, Component} from 'vue-property-decorator'
 import AddNoteModal from '../../notes/modal/AddNoteModal.vue'
 import RegistrationModal from '../../../public/user/account/modal/RegistrationModal.vue'
-// import LoginModal from '../../../public/user/account/modal/LoginModal.vue'
-// LoginModal
+import LoginModal from '../../../public/user/account/modal/LoginModal.vue'
+import {mapGetters} from 'vuex'
+import {getModule} from 'vuex-module-decorators'
+import UserModule from '../../../store/modules/user'
+
 @Component({
-  components: { AddNoteModal, RegistrationModal },
-  computed: {},
+  components: { AddNoteModal, RegistrationModal, LoginModal },
+  computed: {
+    ...mapGetters( 'user', [ 'userAuthenticated' ] )
+  },
+  mounted() {
+    console.log('log', this.userAuthenticated)
+    getModule(UserModule, this.$store).information()
+  }
 })
 export default class HeaderApp extends Vue {
+  logoutUrl =  Routing.generate( 'mnh_api_user_information' )
+
   addNoteModal() {
     this.$buefy.modal.open({
       parent: this,
@@ -77,8 +88,13 @@ export default class HeaderApp extends Vue {
   loginModal() {
     this.$buefy.modal.open({
       parent: this,
-      component: AddNoteModal,
+      component: LoginModal,
     })
   }
+
+  get url () {
+    return this.logoutUrl
+  }
+
 }
 </script>

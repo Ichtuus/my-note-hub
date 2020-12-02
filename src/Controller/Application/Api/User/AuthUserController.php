@@ -8,6 +8,7 @@ use App\Helper\Exception\ExceptionHelper;
 use App\Procedure\User\UserCreationProcedure;
 use App\Serializer\User\UserArraySerializer;
 use Exception;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,8 +53,9 @@ class AuthUserController extends AbstractController
         SerializerInterface $serializer
     ) {
         $data = $serializer->deserialize($request->getContent(),User::class, 'json');
-        dump($data); die();
+
         $user = $this->userCreationProcedure->process($data);
+
         $errors = $this->validator->validate($user);
 
         if (count($errors) > 0) {
@@ -68,5 +70,36 @@ class AuthUserController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/user/me/login",
+     *     name="mnh_user_login",
+     *     methods={"POST"},
+     *     options={"expose": true})
+     */
+    public function login()
+    {
+        if ($this->getUser()) {
+            //TODO make redirection
+            return $this->json([
+                "id" => $this->getUser()->getId(),
+                "username" => $this->getUser()->getUsername()
+            ]);
+        }
+
+        return new JsonResponse('An error occured', Response::HTTP_UNAUTHORIZED);
+    }
+
+    /**
+     * @throws RuntimeException
+     *
+     * @Route("/user/me/logout",
+     *     name="mnh_user_logout",
+     *     options={"expose": true},
+     *     methods={"GET"})
+     */
+    public function logoutAction(): void
+    {
+        throw new RuntimeException('This should not be reached!');
+    }
 
 }

@@ -23,16 +23,35 @@ export default class UserModule extends VuexModule {
     }
 
     @Action
-    async registration(payload: IUser): Promise<void> {
+    async registration (payload: IUser): Promise<void> {
         try {
-            console.log('uhe', payload)
-            this.context.commit(m.IS_LOADING_UPDATE, true);
+            this.context.commit( m.IS_LOADING_UPDATE, true )
             await UserApi.registrationProcess(payload);
-            console.log('response', UserApi)
-            this.context.commit(m.IS_LOADING_UPDATE, false);
+            this.context.commit( m.IS_LOADING_UPDATE, false )
+            // TODO refresh page
         } catch (e) {
             console.log('error store on registration', e)
         }
     }
 
+    @Action
+    async information (): Promise<void> {
+        try {
+            this.context.commit( m.IS_LOADING_UPDATE, true )
+            await UserApi.userInformation()
+            this.context.commit( m.IS_LOADING_UPDATE, false )
+        } catch (e) {
+            console.log('error store on information', e)
+        }
+    }
+
+    @Mutation
+    [m.IS_LOADING_UPDATE] (isLoading: boolean): void {
+        this._user.user.isLoading = isLoading
+    }
+
+    get userAuthenticated (): boolean {
+        console.log('user', this._user.user.user_authenticated)
+        return this._user.user.user_authenticated
+    }
 }
