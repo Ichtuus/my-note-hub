@@ -79,11 +79,7 @@ class AuthUserController extends AbstractController
     public function login()
     {
         if ($this->getUser()) {
-            //TODO make redirection
-            return $this->json([
-                "id" => $this->getUser()->getId(),
-                "username" => $this->getUser()->getUsername()
-            ]);
+            return $this->redirectToRoute('/');
         }
 
         return new JsonResponse('An error occured', Response::HTTP_UNAUTHORIZED);

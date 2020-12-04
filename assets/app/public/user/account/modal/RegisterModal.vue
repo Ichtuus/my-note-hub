@@ -50,23 +50,19 @@ import UserModule from "../../../../store/modules/user";
 
 @Component({
   components: {  },
-
 })
 export default class RegistrationModal extends Vue {
   username = ''
   email = ''
   password = ''
 
-  register() {
-    console.log('ici')
+  register () {
     const payload = {
       username: this.username,
       email: this.email,
       password: this.password
     }
-    console.log('payl', payload)
     getModule(UserModule, this.$store).registration(payload)
-
   }
 }
 </script>

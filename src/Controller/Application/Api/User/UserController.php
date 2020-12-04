@@ -39,7 +39,7 @@ class UserController extends AbstractController
         }
         return $this->json(
             [
-                'data' => $this->userArraySerializer->toArray($this->getUser()),
+                $this->userArraySerializer->toArray($this->getUser())
             ]
         );
     }

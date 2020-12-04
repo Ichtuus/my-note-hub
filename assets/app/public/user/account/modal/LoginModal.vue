@@ -3,10 +3,6 @@
     <div class="modal-card" style="width: auto">
       <header class="modal-card-head">
         <p class="modal-card-title">Login</p>
-        <button
-            type="button"
-            class="delete"
-            @click="$emit('close')"/>
       </header>
       <section class="modal-card-body">
 
@@ -46,7 +42,7 @@ import {Vue, Component} from 'vue-property-decorator'
   components: {  }
 })
 export default class LoginModal extends Vue {
-  loginUrl =  Routing.generate('mnh_user_login')
+  loginUrl =  Routing.generate( 'mnh_user_login' )
 
   get url () {
     return this.loginUrl

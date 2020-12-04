@@ -18,7 +18,7 @@ export default class UserModule extends VuexModule {
                 name: '',
                 creation_datetime: ''
             },
-            isLoading: true
+            isLoading: false
         }
     }
 
@@ -28,7 +28,6 @@ export default class UserModule extends VuexModule {
             this.context.commit( m.IS_LOADING_UPDATE, true )
             await UserApi.registrationProcess(payload);
             this.context.commit( m.IS_LOADING_UPDATE, false )
-            // TODO refresh page
         } catch (e) {
             console.log('error store on registration', e)
         }
@@ -38,9 +37,11 @@ export default class UserModule extends VuexModule {
     async information (): Promise<void> {
         try {
             this.context.commit( m.IS_LOADING_UPDATE, true )
-            await UserApi.userInformation()
+            const {data} = await UserApi.userInformation()
             this.context.commit( m.IS_LOADING_UPDATE, false )
+            this.context.commit( m.UPDATE_USER, data )
         } catch (e) {
+            this.context.commit( m.IS_LOADING_UPDATE, false )
             console.log('error store on information', e)
         }
     }
@@ -50,8 +51,16 @@ export default class UserModule extends VuexModule {
         this._user.user.isLoading = isLoading
     }
 
+    @Mutation
+    [m.UPDATE_USER] (isAuthenticated: boolean): void {
+        this._user.user.user_authenticated = isAuthenticated
+    }
+
     get userAuthenticated (): boolean {
-        console.log('user', this._user.user.user_authenticated)
         return this._user.user.user_authenticated
+    }
+
+    get isLoading (): boolean {
+        return this._user.user.isLoading
     }
 }
