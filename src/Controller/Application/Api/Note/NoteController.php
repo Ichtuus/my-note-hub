@@ -2,10 +2,13 @@
 
 namespace App\Controller\Application\Api\Note;
 
+use App\Entity\Hub\Hub;
 use App\Entity\Note\Note;
+use App\Entity\User\User;
 use App\Procedure\Note\NoteCreationProcedure;
-use http\Client\Response;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mercure\Publisher;
 use Symfony\Component\Mercure\PublisherInterface;
@@ -13,6 +16,9 @@ use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
+/**
+ * @method User getUser()
+ */
 class NoteController extends AbstractController
 {
     private NoteCreationProcedure $noteCreationProcedure;
@@ -23,21 +29,25 @@ class NoteController extends AbstractController
 
     /**
      * @Route(
-     *     "/hub/notes/add",
+     *     "/hub/{id}/notes/add",
      *     name="my_note_hub_api_note_add",
      *     methods={"POST"},
      *     options={"expose"=true}
      * )
      * @param Request $request
+     * @param Hub $hub
      * @param SerializerInterface $serializer
      * @param PublisherInterface $publisher
-     * @return Response
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function add(Request $request, SerializerInterface $serializer, PublisherInterface $publisher)
+    public function add(Request $request, Hub $hub, SerializerInterface $serializer, PublisherInterface $publisher)
     {
         $data = $serializer->deserialize($request->getContent(),Note::class, 'json');
-//        TODO Improve handler of topics
-            $this->noteCreationProcedure->createNote($data);
+        // TODO Improve handler of topics
+        return $this->json([
+            'data'=> $this->noteCreationProcedure->createNote($hub, $this->getUser(), $data)
+        ]);
 //        $update = new Update(
 //            'my-note-hub.localhost/note',
 //            json_encode(

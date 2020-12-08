@@ -63,11 +63,13 @@
 import {Vue, Component} from 'vue-property-decorator'
 import {getModule} from "vuex-module-decorators";
 import NoteModule from "../../../store/modules/note";
+import {mapGetters} from "vuex";
 
 @Component({
   components: {  },
 })
 export default class AddNoteModal extends Vue {
+  // userHubId!: string
   note_title: string = ''
   note_content: string = ''
   note_first_link: string = ''
@@ -75,14 +77,19 @@ export default class AddNoteModal extends Vue {
   note_third_link: string = ''
 
   createNote () {
-    const payload = {
+    const newNote = {
       note_title: this.note_title,
       note_content: this.note_content,
       note_first_link: this.note_first_link,
       note_second_link: this.note_second_link,
       note_third_link: this.note_third_link
     }
-    getModule(NoteModule, this.$store).add(payload)
+    console.log('bha alors', this.userHubId)
+    getModule(NoteModule, this.$store).add({user: newNote, id: this.userHubId})
+  }
+
+   get userHubId() {
+    return this.$store.getters['user/userHubId'];
   }
 }
 </script>

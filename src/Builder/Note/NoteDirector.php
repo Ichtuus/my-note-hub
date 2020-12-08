@@ -9,37 +9,30 @@ use DateTime;
 
 class NoteDirector
 {
-    public function buildNote($data)
+    public function buildNote(Hub $hub, User $user, $data)
     {
-        dump($data); die();
+//        dump(empty($data->getNoteTitle())); die();
         $note = new Note();
 
-//        if(isset($data['title'])) {
-//            $anime->setTitle($data['title']);
-//        }
-//        if(isset($data['imageUrl'])) {
-//            $anime->setImageUrl($data['imageUrl']);
-//        }
-//        if(isset($data['synopsis'])) {
-//            $anime->setSynopsis($data['synopsis']);
-//        }
-//        if(isset($data['type'])) {
-//            $anime->setType($data['type']);
-//        }
-//        if(isset($data['episodes'])) {
-//            $anime->setEpisodes($data['episodes']);
-//        }
-//        if(isset($data['rated'])) {
-//            $anime->setRated($data['rated']);
-//        }
-//        if(isset($data['startDate'])) {
-//            $anime->setstartDate(new DateTime($data['startDate']));
-//        }
-//        if(isset($data['endDate'])) {
-//            $anime->setEndDate(new DateTime($data['endDate']));
-//        }
-//        $note->setCreator($user);
-//        $note->setHub($hub);
-//        return $note;
+        if(empty($data->getNoteTitle())) {
+            $data->setNoteTitle($data->getNoteTitle());
+        }
+        if(empty($data->getNoteContent())) {
+            $data->setNoteContent($data->getNoteContent());
+        }
+        if(empty($data->getNoteFirstLink())) {
+            $data->setNoteFirstLink($data->getNoteFirstLink());
+        }
+        if(empty($data->getNoteSecondLink())) {
+            $data->setNoteSecondLink($data->getNoteSecondLink());
+        }
+        if(empty($data->getNoteThirdLink())) {
+            $data->setNoteThirdLink($data->getNoteThirdLink());
+        }
+//        $data->setCreationDatetime(new DateTime());
+//      $anime->setstartDate(new DateTime($data['startDate']));
+        $note->setCreator($user);
+        $note->setHub($hub);
+        return $note;
     }
 }

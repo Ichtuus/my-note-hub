@@ -34,9 +34,9 @@ class NoteCreationProcedure
      * @return mixed
      * @throws Exception
      */
-    public function createNote($data)
+    public function createNote(Hub $hub, User $creator, $data)
     {
-        $note = $this->noteDirector->buildNote($data);
+        $note = $this->noteDirector->buildNote($hub, $creator, $data);
 
         $violations = $this->validator->validate($note);
         if ($violations->count()) {
