@@ -32,6 +32,8 @@ RUN set -eux; \
 	docker-php-ext-configure zip; \
 	docker-php-ext-install -j$(nproc) \
 	    intl \
+	    mysqli \
+        pdo_mysql \
 	    zip \
 	; \
 	pecl install \
@@ -84,10 +86,9 @@ RUN composer create-project "symfony/skeleton ${SYMFONY_VERSION}" . --stability=
 
 ###> recipes ###
 ###> doctrine/doctrine-bundle ###
-RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
-	docker-php-ext-install -j$(nproc) pdo_pgsql; \
-	apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5; \
-	apk del .pgsql-deps
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-enable pdo_mysql
+
 ###< doctrine/doctrine-bundle ###
 ###< recipes ###
 

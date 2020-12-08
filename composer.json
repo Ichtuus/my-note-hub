@@ -2,7 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "composer/package-versions-deprecated": "1.11.99.1",
@@ -10,6 +10,7 @@
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
+        "friendsofsymfony/jsrouting-bundle": "^2.6",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "*",
@@ -22,6 +23,7 @@
         "symfony/http-client": "*",
         "symfony/intl": "*",
         "symfony/mailer": "*",
+        "symfony/mercure-bundle": "^0.2.6",
         "symfony/mime": "*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/notifier": "*",
@@ -38,7 +40,9 @@
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "ext-json": "*",
+        "ext-intl": "*"
     },
     "require-dev": {
         "symfony/browser-kit": "^5.1",
