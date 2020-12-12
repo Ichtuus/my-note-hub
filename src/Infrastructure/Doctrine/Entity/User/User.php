@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entity\User;
+namespace App\Infrastructure\Doctrine\Entity\User;
 
-use App\Entity\Hub\Hub;
-use App\Entity\Hub\HubUserRole;
+use App\Infrastructure\Doctrine\Entity\Hub\Hub;
+use App\Infrastructure\Doctrine\Entity\Hub\HubUserRole;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;

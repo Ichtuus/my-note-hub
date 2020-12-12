@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Entity\Note;
+namespace App\Infrastructure\Doctrine\Entity\Note;
 
-use App\Entity\Hub\Hub;
-use App\Entity\User\User;
+use App\Infrastructure\Doctrine\Entity\Hub\Hub;
+use App\Infrastructure\Doctrine\Entity\User\User;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;

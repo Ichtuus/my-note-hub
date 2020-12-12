@@ -1,9 +1,8 @@
 <?php
 
+namespace App\Infrastructure\Doctrine\Repository\Hub;
 
-namespace App\Repository\Hub;
-
-use App\Entity\Hub\Hub;
+use App\Infrastructure\Doctrine\Entity\Hub\Hub;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

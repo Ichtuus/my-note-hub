@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Entity\Hub;
+namespace App\Infrastructure\Doctrine\Entity\Hub;
 
 
-use App\Entity\User\User;
+use App\Infrastructure\Doctrine\Entity\User\User;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;

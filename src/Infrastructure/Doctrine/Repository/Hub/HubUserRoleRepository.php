@@ -1,10 +1,8 @@
 <?php
 
+namespace App\Infrastructure\Doctrine\Repository\Hub;
 
-namespace App\Repository\Hub;
-
-
-use App\Entity\Hub\HubUserRole;
+use App\Infrastructure\Doctrine\Entity\Hub\HubUserRole;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
