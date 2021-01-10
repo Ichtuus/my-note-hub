@@ -8,6 +8,10 @@
             "@types/jest",
             "node"
         ],
+        "typeRoots": [
+            "./assets/app/types",
+            "./store/models"
+        ],
         "importHelpers": true,
         "experimentalDecorators": true,
         "esModuleInterop": true
