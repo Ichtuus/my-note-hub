@@ -85,7 +85,7 @@ export default class AddNoteModal extends Vue {
       note_third_link: this.note_third_link
     }
     console.log('bha alors', this.userHubId)
-    getModule(NoteModule, this.$store).add({user: newNote, id: this.userHubId})
+    getModule(NoteModule, this.$store).add({newNote, id: this.userHubId})
   }
 
    get userHubId() {

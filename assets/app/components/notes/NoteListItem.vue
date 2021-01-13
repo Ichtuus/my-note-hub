@@ -16,7 +16,7 @@
       <a :href="note.note_third_link">Third link</a>
     </template>
     <template v-slot:date>
-      <time datetime="2016-1-1">{{ note.note_date }}</time>
+      <time datetime="2016-1-1">{{ note.creation_datetime }}</time>
     </template>
   </note-skeleton>
 </template>

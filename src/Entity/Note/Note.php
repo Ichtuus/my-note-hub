@@ -7,6 +7,7 @@ use App\Entity\Hub\Hub;
 use App\Entity\User\User;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -14,6 +15,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     indexes={@ORM\Index(name="creation_datetime", columns={"creation_datetime"})}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\Note\NoteRepository")
+ * @UniqueEntity(
+ *     fields={"noteTitle"},
+ *     errorPath="noteTitle",
+ *     message="This note name is already in use."
+ * )
  */
 class Note
 {
