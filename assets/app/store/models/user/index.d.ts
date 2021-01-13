@@ -1,14 +1,9 @@
 export interface IUser {
     id: string,
-    username: string,
     email: string,
+    username: string,
+    hub: object,
     user_authenticated: boolean,
-    hub: {
-        id: string,
-        name: string,
-        creation_datetime: string
-    },
-    isLoading: boolean
 }
 
 // export class UserDTO implements IUser {

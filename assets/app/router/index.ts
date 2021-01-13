@@ -8,7 +8,10 @@ const router = new Router({
         {
             path: '/',
             name: 'Home',
-            component: () => import('../public/Home.vue'),
+            component: () => {
+                // @ts-ignore
+                return import('../public/Home.vue');
+            },
         }
     ]
 })

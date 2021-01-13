@@ -7,7 +7,7 @@ import {UserApi} from '../../../api/user/user'
 
 @Module({ namespaced: true, name: modules.user, stateFactory: true })
 export default class UserModule extends VuexModule {
-    private _user: IUser = {
+    private _user: any = {
         id: '',
         username: '',
         email: '',
@@ -21,7 +21,7 @@ export default class UserModule extends VuexModule {
     }
 
     @Action
-    async registration (payload: IUser): Promise<void> {
+    async registration (payload: any): Promise<void> {
         try {
             this.context.commit( m.IS_LOADING_UPDATE, true )
             await UserApi.registrationProcess(payload);

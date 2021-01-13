@@ -18,6 +18,7 @@ import {Vue, Component} from 'vue-property-decorator'
 import {mapGetters} from 'vuex'
 import Home from './public/Home.vue'
 import Registration from './public/Registration.vue'
+// @ts-ignore
 import sses from './tools/note/manage-topic'
 import {getModule} from 'vuex-module-decorators'
 import UserModule from './store/modules/user'
