@@ -1,38 +1,46 @@
-import {Action, getModule, Module, Mutation, VuexModule} from 'vuex-module-decorators'
+import {Action, Module, Mutation, VuexModule} from 'vuex-module-decorators'
 
 import modules from '../modules'
 import { mutations as m } from './constants'
-import {INote} from '../../models/note'
-
-import {NoteApi} from '../../../api/note/note'
+import NoteApi from '../../../api/note/note'
 
 @Module({ namespaced: true, name: modules.note, stateFactory: true })
 export default class NoteModule extends VuexModule {
 
-    public _note: INote = {
-        note_title: '',
-        note_content: '',
-        note_first_link: '',
-        note_second_link: '',
-        note_third_link: ''
+    public _note: any = []
+
+    @Action
+    async add ({newNote, id}: {newNote: any, id: string}): Promise<void> {
+        try {
+            const {note} = await NoteApi.addNoteProcess(newNote, id)
+            this.context.commit(m.UPDATE_NOTE_LIST, {note})
+        } catch (e) {
+            console.log('e', e.response)
+        }
     }
 
     @Action
-    async add ({newNote, id}): Promise<void> {
-        console.log('newNote note', newNote, 'hib id', id)
-        const data = await NoteApi.addNoteProcess(newNote, id)
-        console.log('data', {data}, data)
-        this.context.commit(m.UPDATE_NOTE_LIST, data)
+    async get (hubId: string): Promise<void> {
+        try {
+            const notes = await NoteApi.getNoteProcess(hubId)
+            this.context.commit(m.LOAD_NOTES, {notes})
+        } catch (e) {
+            console.log('e', e.response)
+        }
     }
 
-
-    @Mutation
-    [m.UPDATE_NOTE_LIST] (data: INote): void {
-        // console.log('mutate note', data)
-        this._note = data
-    }
 
     get notes () {
         return this._note
+    }
+
+    @Mutation
+    [m.UPDATE_NOTE_LIST] ({note}: { note: any }): void {
+        this._note.unshift(note)
+    }
+
+    @Mutation
+    [m.LOAD_NOTES] ({notes}: {notes: any} ): void {
+        this._note = notes
     }
 }

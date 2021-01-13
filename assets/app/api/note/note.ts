@@ -1,18 +1,23 @@
-import Axios from 'axios'
+import axios, {AxiosResponse} from 'axios'
 import {INoteAddRequestInterface} from '../interfaces/note/add'
 import {INote} from '../../store/models/note'
 
-export abstract class NoteApi {
-    private static userAxios = Axios.create()
 
-    static async addNoteProcess (user: INote, id: string): Promise<INote> {
-        console.log('last point', id, 'et', user)
-        return await this.userAxios.post<INoteAddRequestInterface>( Routing.generate( 'my_note_hub_api_note_add', {id}), {
-            note_title: user.note_title,
-            note_content: user.note_content,
-            note_first_link: user.note_first_link,
-            note_second_link: user.note_second_link,
-            note_third_link: user.note_third_link
-        })
-    }
+function addNoteProcess (newNote: any, id: string): Promise<INote> {
+    return axios.post( Routing.generate( 'my_note_hub_api_note_add', {id}), {
+        note_title: newNote.note_title,
+        note_content: newNote.note_content,
+        note_first_link: newNote.note_first_link,
+        note_second_link: newNote.note_second_link,
+        note_third_link: newNote.note_third_link
+    }).then((response: AxiosResponse) => response.data)
+}
+function getNoteProcess (hubId: string) {
+    return axios.get(Routing.generate('my_note_hub_api_note_get', { id: hubId }
+    )).then((response: AxiosResponse) => response.data)
+}
+
+export default {
+    addNoteProcess,
+    getNoteProcess
 }

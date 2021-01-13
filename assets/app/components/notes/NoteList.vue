@@ -9,49 +9,24 @@
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator'
 import NoteListItem from "./NoteListItem.vue"
+import {getModule} from "vuex-module-decorators";
+import NoteModule from "../../store/modules/note";
+import UserModule from "../../store/modules/user";
 
 @Component({
   components: { NoteListItem }
 })
 export default class NoteList extends Vue {
-  notes: any = [
-    {
-      id: 1,
-      note_title: 'My first note',
-      note_content: 'An custom test content',
-      note_first_link: 'www.google.com',
-      note_second_link: null,
-      note_third_link: 'www.phpnet.com',
-      note_date: '11:09 PM - 1 Jan 2016'
-    },
-    {
-      id: 2,
-      note_title: 'My second note',
-      note_content: 'An test content but i didn\'t what i say',
-      note_first_link: 'www.google.com',
-      note_second_link: null,
-      note_third_link: 'www.phpnet.com',
-      note_date: '11:09 PM - 1 Jan 2016'
-    },
-    {
-      id: 3,
-      note_title: 'My third note',
-      note_content: 'Other test content',
-      note_first_link: 'www.google.com',
-      note_second_link: null,
-      note_third_link: 'www.phpnet.com',
-      note_date: '11:09 PM - 1 Jan 2016'
-    },
-    {
-      id: 4,
-      note_title: 'My fourth note',
-      note_content: 'Last test content',
-      note_first_link: 'www.google.com',
-      note_second_link: null,
-      note_third_link: 'www.phpnet.com',
-      note_date: '11:09 PM - 1 Jan 2016'
-    }
-  ]
+  async mounted () {
+    await getModule( NoteModule, this.$store ).get(this.userHubId)
+  }
 
+  get userHubId () {
+    return getModule( UserModule, this.$store ).userHubId
+  }
+
+  get notes () {
+    return getModule( NoteModule, this.$store ).notes
+  }
 }
 </script>
