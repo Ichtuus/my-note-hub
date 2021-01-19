@@ -5,8 +5,10 @@ namespace App\Controller\Application\Api\Note;
 use App\Entity\Hub\Hub;
 use App\Entity\Note\Note;
 use App\Entity\User\User;
+use App\Factory\Note\PatchFactory;
 use App\Finder\Notes\NotesFinder;
 use App\Procedure\Note\NoteCreationProcedure;
+use App\Procedure\Note\NoteEditionProcedure;
 use App\Serializer\Note\NoteArraySerializer;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,15 +26,21 @@ use Symfony\Component\Serializer\SerializerInterface;
 class NoteController extends AbstractController
 {
     private NoteCreationProcedure $noteCreationProcedure;
+    private NoteEditionProcedure $noteEditionProcedure;
+    private PatchFactory $patchFactory;
     private NoteArraySerializer $noteArraySerializer;
     private NotesFinder $NotesFinder;
 
     public function __construct(
         NoteCreationProcedure $noteCreationProcedure,
+        NoteEditionProcedure $noteEditionProcedure,
+        PatchFactory $patchFactory,
         NoteArraySerializer $noteArraySerializer,
         NotesFinder $NotesFinder
     ) {
         $this->noteCreationProcedure = $noteCreationProcedure;
+        $this->noteEditionProcedure = $noteEditionProcedure;
+        $this->patchFactory = $patchFactory;
         $this->noteArraySerializer = $noteArraySerializer;
         $this->NotesFinder = $NotesFinder;
     }
@@ -75,6 +83,22 @@ class NoteController extends AbstractController
         return $this->json([
             'note' => $this->noteArraySerializer->toArray($this->noteCreationProcedure->createNote($hub, $this->getUser(), $data))
         ]);
+    }
+
+    /**
+     * @Route(
+     *     "/hub/{id}/notes/patch",
+     *     name="my_note_hub_api_note_patch",
+     *     methods={"PATCH"},
+     *     options={"expose"=true}
+     * )
+     */
+    public function patch(Hub $hub, Request $request)
+    {
+        $this->noteEditionProcedure->patchNoteProcess(
+            $hub,
+            $this->patchFactory->createPatchObject($request)
+        );
     }
 
 }
