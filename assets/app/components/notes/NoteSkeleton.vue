@@ -19,17 +19,20 @@
 <!--        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>-->
       </div>
     </div>
-    <note-footer-button/>
+    <note-footer-button :current-note="currentNote"/>
   </div>
 </template>
 
 <script lang="ts">
-import {Vue, Component} from 'vue-property-decorator'
+import {Vue, Component, Prop} from 'vue-property-decorator'
+import { INote } from '../../store/models'
 import NoteFooterButton from "./NoteFooterButton.vue"
 
 @Component({
   components: { NoteFooterButton }
 })
 export default class NoteSkeleton extends Vue {
+  @Prop( { type: Object, required: true } ) readonly currentNote!: INote
+
 }
 </script>
