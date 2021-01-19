@@ -29,6 +29,15 @@ export default class NoteModule extends VuexModule {
         }
     }
 
+    @Action
+    async patch (noteId: string) {
+        try {
+            await NoteApi.patchNoteProcess(noteId)
+        } catch (e) {
+            console.log('e', e)
+        }
+    }
+
 
     get notes () {
         return this._note
