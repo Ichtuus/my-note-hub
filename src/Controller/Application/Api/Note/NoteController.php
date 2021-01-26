@@ -87,16 +87,19 @@ class NoteController extends AbstractController
 
     /**
      * @Route(
-     *     "/hub/{id}/notes/patch",
+     *     "/notes/{id}/notes/patch",
      *     name="my_note_hub_api_note_patch",
      *     methods={"PATCH"},
      *     options={"expose"=true}
      * )
+     * @param Note $note
+     * @param Request $request
+     * @throws \JsonException
      */
-    public function patch(Hub $hub, Request $request)
+    public function patch(Note $note, Request $request)
     {
         $this->noteEditionProcedure->patchNoteProcess(
-            $hub,
+            $note,
             $this->patchFactory->createPatchObject($request)
         );
     }
