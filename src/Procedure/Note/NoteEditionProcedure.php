@@ -3,58 +3,40 @@
 namespace App\Procedure\Note;
 
 use App\Entity\Note\Note;
+use App\Form\Note\Type\NoteType;
 use App\Repository\Note\NoteRepository;
 use App\Service\Patcher\Patch;
 use App\Service\Patcher\PatchObject;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class NoteEditionProcedure
 {
     private Patch $patcher;
-    private NoteRepository $noteRepository;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(
         Patch $patcher,
-        NoteRepository $noteRepository
+        EntityManagerInterface $entityManager
     ) {
         $this->patcher = $patcher;
-        $this->noteRepository = $noteRepository;
+        $this->entityManager = $entityManager;
     }
 
-    public function patchNoteProcess(Note $note, PatchObject $patch)
+    public function patchNoteProcess(PatchObject $patch, $form)
     {
-        $this->patcher->setValues([
-            'notes' => $this->noteRepository->findByHub($note->getHub())
-        ])
-        ->setOperations([
-            PatchObject::OPERATION_REPLACE
-        ])
-        ->setPathList([
-            [
-                'path' => '/noteTitle',
-                'regex' => false
-            ],
-            [
-                'path' => '/noteContent',
-                'regex' => false
-            ],
-            [
-                'path' => '/noteTitle',
-                'regex' => false
-            ],
-            [
-                'path' => '/note_first_link',
-                'regex' => false
-            ],
-            [
-                'path' => '/note_second_link',
-                'regex' => false
-            ],
-            [
-                'path' => '/note_third_link',
-                'regex' => false
-            ],
-        ])
-        ->patch($note, $patch);
+        $form->submit($patch->value, false);
+        if(false === $form->isValid()) {
+            return new JsonResponse(
+                [
+                    'status' => 'error',
+                    'errors' => $form
+                ],
+                JsonResponse::HTTP_BAD_REQUEST
+            );
+        }
+//        dump($form);die();
+        $this->entityManager->flush();
     }
 
 }
