@@ -21,8 +21,14 @@ function patchNoteProcess ({noteId, payload}: {noteId: string, payload: any}) {
     ).then((response: AxiosResponse) => response.data)
 }
 
+function deleteNoteProcess ({noteId}: {noteId: string}) {
+    return axios.delete(Routing.generate('my_note_hub_api_note_delete', { id: noteId })
+    ).then((response: AxiosResponse) => response.data)
+}
+
 export default {
     addNoteProcess,
     getNoteProcess,
-    patchNoteProcess
+    patchNoteProcess,
+    deleteNoteProcess
 }

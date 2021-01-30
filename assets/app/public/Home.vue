@@ -10,10 +10,10 @@
           </div>
         </div>
       </div>
-      <div v-if="!isEditingNote && notes.length > 0">
+      <div v-if="!isLoading && notes.length > 0">
         <note-list :notes="notes"/>
       </div>
-      <div v-else-if="!isEditingNote" class="text-center">
+      <div v-else-if="!isLoading" class="text-center">
           <i class="fas fa-spinner fa-pulse fa-1x fa-fw"/>
       </div>
       <div v-else>
@@ -48,8 +48,8 @@ export default class Home extends Vue {
     return getModule( NoteModule, this.$store ).notes
   }
 
-  get isEditingNote () {
-    return getModule( NoteModule, this.$store ).isEditingNote
+  get isLoading () {
+    return getModule( NoteModule, this.$store ).isLoading
   }
 }
 </script>
