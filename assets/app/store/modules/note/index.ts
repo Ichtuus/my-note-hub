@@ -8,7 +8,7 @@ import NoteApi from '../../../api/note/note'
 export default class NoteModule extends VuexModule {
 
     private _notes: any = []
-    private _isEditingNote = false
+    private _isLoading = false
 
     @Action
     async add ({ newNote, id }: { newNote: any, id: string }): Promise<void> {
@@ -32,15 +32,26 @@ export default class NoteModule extends VuexModule {
 
     @Action
     async patch ({ noteId, payload }: { noteId: string, payload: any }): Promise<void> {
-        this.context.commit(m.IS_EDITING_NOTE, { isLoading: true, mode: 'edit_note' })
+        this.context.commit(m.IS_LOADING, { isLoading: true })
         try {
             const { note } = await NoteApi.patchNoteProcess({ noteId, payload })
             this.context.commit(m.UPDATE_NOTE, { note })
-            console.log('this.note', this._notes)
-            this.context.commit(m.IS_EDITING_NOTE, { isLoading: false, mode: 'edit_note' })
+            this.context.commit(m.IS_LOADING, { isLoading: false })
         } catch (e) {
             console.log('e', e.response)
-            this.context.commit(m.IS_EDITING_NOTE, { isLoading: false, mode: 'edit_note' })
+            this.context.commit(m.IS_LOADING, { isLoading: false })
+        }
+    }
+    @Action
+    async delete ({ noteId }: { noteId: string }): Promise<void> {
+        this.context.commit(m.IS_LOADING, { isLoading: true })
+        try {
+            await NoteApi.deleteNoteProcess({ noteId })
+            this.context.commit(m.REMOVE_NOTE, noteId)
+            this.context.commit(m.IS_LOADING, { isLoading: false })
+        } catch (e) {
+            console.log('e', e.response)
+            this.context.commit(m.IS_LOADING, { isLoading: false })
         }
     }
 
@@ -48,8 +59,8 @@ export default class NoteModule extends VuexModule {
         return this._notes
     }
 
-    get isEditingNote () {
-        return this._isEditingNote
+    get isLoading () {
+        return this._isLoading
     }
 
     @Mutation
@@ -59,14 +70,17 @@ export default class NoteModule extends VuexModule {
 
     @Mutation
     [m.UPDATE_NOTE] ({ note }: { note: any }): void {
-        this._notes[this._notes.findIndex((x: { id: any }) => x.id == note.id)] = note
+        this._notes[this._notes.findIndex((x: { id: string }) => x.id == note.id)] = note
     }
 
     @Mutation
-    [m.IS_EDITING_NOTE] ({ isLoading, mode }: { isLoading: boolean, mode: string }): void {
-        if (mode === 'edit_note') {
-            this._isEditingNote = isLoading
-        }
+    [m.REMOVE_NOTE] (noteId :string): void {
+        this._notes = this._notes.filter((((item: { id: string }) => item.id !== noteId)))
+    }
+
+    @Mutation
+    [m.IS_LOADING] ({ isLoading }: { isLoading: boolean }): void {
+        this._isLoading = isLoading
     }
 
     @Mutation
