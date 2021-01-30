@@ -3,40 +3,90 @@
 namespace App\Procedure\Note;
 
 use App\Entity\Note\Note;
-use App\Form\Note\Type\NoteType;
 use App\Repository\Note\NoteRepository;
-use App\Service\Patcher\Patch;
-use App\Service\Patcher\PatchObject;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Container\ContainerInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpClient\Exception\JsonException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NoteEditionProcedure
 {
-    private Patch $patcher;
     private EntityManagerInterface $entityManager;
+    private NoteRepository $noteRepository;
+    private ContainerInterface $container;
+    private TranslatorInterface $translator;
+
 
     public function __construct(
-        Patch $patcher,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        NoteRepository $noteRepository,
+        ContainerInterface $container,
+        TranslatorInterface $translator
     ) {
-        $this->patcher = $patcher;
         $this->entityManager = $entityManager;
+        $this->noteRepository = $noteRepository;
+        $this->container = $container;
+        $this->translator = $translator;
     }
 
-    public function patchNoteProcess(PatchObject $patch, $form)
+    public function patchNoteProcess($data, $type, Note $note)
     {
-        $form->submit($patch->value, false);
-        if(false === $form->isValid()) {
+        $note = $this->noteRepository->findOneBy(["id" => $note->getId()]);
+        $form = $this->container->get('form.factory')->create($type, $note, $options = []);
+
+        if(empty($data)) {
+            Throw new JsonException('Value must be provide');
+        }
+
+        $form->submit($data, false);
+
+        if(!$form->isValid()) {
             return new JsonResponse(
                 [
                     'status' => 'error',
-                    'errors' => $form
+                    'errors' => $this->convertFormToArray($form)
                 ],
                 JsonResponse::HTTP_BAD_REQUEST
             );
         }
-//        dump($form);die();
+
         $this->entityManager->flush();
+
+        return $note;
+    }
+
+    private function convertFormToArray(FormInterface $data)
+    {
+        $form = $errors = [];
+
+        foreach ($data->getErrors() as $error) {
+            $errors[] = $this->getErrorMessage($error);
+        }
+
+        if ($errors) {
+            $form['errors'] = $errors;
+        }
+
+        $children = [];
+        foreach ($data->all() as $child) {
+            if ($child instanceof FormInterface) {
+                $children[$child->getName()] = $this->convertFormToArray($child);
+            }
+        }
+
+        if ($children) {
+            $form['children'] = $children;
+        }
+
+        return $form;
+    }
+
+    private function getErrorMessage(FormError $error)
+    {
+        return $this->translator->trans($error->getMessageTemplate(), $error->getMessageParameters(), 'validators');
     }
 
 }
