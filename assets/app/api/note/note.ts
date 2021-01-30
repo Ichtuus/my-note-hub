@@ -16,9 +16,9 @@ function getNoteProcess (hubId: string) {
     )).then((response: AxiosResponse) => response.data)
 }
 
-function patchNoteProcess (noteId: string) {
-    return axios.patch(Routing.generate('my_note_hub_api_note_patch', { id: noteId }
-    )).then((response: AxiosResponse) => response.data)
+function patchNoteProcess ({noteId, payload}: {noteId: string, payload: any}) {
+    return axios.patch(Routing.generate('my_note_hub_api_note_patch', { id: noteId }), payload
+    ).then((response: AxiosResponse) => response.data)
 }
 
 export default {
