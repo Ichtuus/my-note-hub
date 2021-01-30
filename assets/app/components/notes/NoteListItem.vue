@@ -1,5 +1,5 @@
 <template>
-  <note-skeleton>
+  <note-skeleton :current-note="note">
     <template v-slot:header>
       {{ note.note_title }}
     </template>

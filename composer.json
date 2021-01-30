@@ -42,7 +42,8 @@
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
         "ext-json": "*",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "ext-http": "*"
     },
     "require-dev": {
         "symfony/browser-kit": "^5.1",

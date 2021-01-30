@@ -6,10 +6,15 @@ use App\Entity\Hub\Hub;
 use App\Entity\Note\Note;
 use App\Entity\User\User;
 use App\Finder\Notes\NotesFinder;
+use App\Form\Note\Type\NoteType;
 use App\Procedure\Note\NoteCreationProcedure;
+use App\Procedure\Note\NoteEditionProcedure;
+use App\Repository\Note\NoteRepository;
 use App\Serializer\Note\NoteArraySerializer;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpClient\Exception\JsonException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mercure\Publisher;
@@ -24,17 +29,27 @@ use Symfony\Component\Serializer\SerializerInterface;
 class NoteController extends AbstractController
 {
     private NoteCreationProcedure $noteCreationProcedure;
+    private NoteEditionProcedure $noteEditionProcedure;
+    private NoteRepository $noteRepository;
     private NoteArraySerializer $noteArraySerializer;
     private NotesFinder $NotesFinder;
+    private EntityManagerInterface $entityManager;
+
 
     public function __construct(
         NoteCreationProcedure $noteCreationProcedure,
+        NoteEditionProcedure $noteEditionProcedure,
+        NoteRepository $noteRepository,
         NoteArraySerializer $noteArraySerializer,
-        NotesFinder $NotesFinder
+        NotesFinder $NotesFinder,
+        EntityManagerInterface $entityManager
     ) {
         $this->noteCreationProcedure = $noteCreationProcedure;
+        $this->noteEditionProcedure = $noteEditionProcedure;
+        $this->noteRepository = $noteRepository;
         $this->noteArraySerializer = $noteArraySerializer;
         $this->NotesFinder = $NotesFinder;
+        $this->entityManager = $entityManager;
     }
 
 
@@ -77,4 +92,29 @@ class NoteController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route(
+     *     "/notes/{id}/notes/patch",
+     *     name="my_note_hub_api_note_patch",
+     *     methods={"PATCH"},
+     *     options={"expose"=true}
+     * )
+     * @param Note $note
+     * @param Request $request
+     * @return JsonResponse
+     * @throws JsonException
+     */
+    public function patch(Note $note, Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        return $this->json([
+            "note" => $this->noteArraySerializer->toArray(
+                $this->noteEditionProcedure->patchNoteProcess(
+                    $data,
+                    NoteType::class,
+                    $note
+                )
+            )
+        ]);
+    }
 }
