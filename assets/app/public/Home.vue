@@ -7,6 +7,7 @@
         <div class="column is-12">
           <div class="is-pulled-right">
             <b-button type="is-primary" class="card-footer-item"><i class="fa fa-list" aria-hidden="true"></i></b-button>
+            
           </div>
         </div>
       </div>
