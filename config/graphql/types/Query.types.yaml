@@ -1,0 +1,15 @@
+Query:
+  type: object
+  config:
+    description: "Notes ORM repository"
+    fields:
+      note:
+        type: '[Note]!'
+        resolve: "@=resolver('entities', ['Note'])"
+#      notes_list:
+#        type: "NotesList"
+#        args:
+#          limit:
+#            description: "limit"
+#            type: "Int"
+#        resolve: "@=resolver('NotesList', [args])"

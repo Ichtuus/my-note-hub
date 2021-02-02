@@ -1,0 +1,29 @@
+Note:
+  type: object
+  config:
+    description: "A note"
+    fields:
+      id:
+        type: Uuid!
+        description: "The unique ID of note"
+      name:
+        type: "String"
+        description: "The unique name of note"
+      noteTitle:
+        type: "String"
+        description: "The unique title of note"
+      noteContent:
+        type: "String"
+        description: "The unique content of note"
+      note_first_link:
+        type: "String"
+        description: "The first link of note"
+      note_second_link:
+        type: "String"
+        description: "The second link of note"
+      note_third_link:
+        type: "String"
+        description: "The third link of note"
+      creationDatetime:
+        type: "String"
+        description: "The date of note"
