@@ -81,6 +81,9 @@
     "egulias/email-validator": {
         "version": "2.1.24"
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.3"
+    },
     "friendsofsymfony/jsrouting-bundle": {
         "version": "2.3",
         "recipe": {
@@ -110,6 +113,20 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.10.0"
+    },
+    "overblog/graphql-bundle": {
+        "version": "0.12",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.12",
+            "ref": "c01dcfb85a6e93f1a43ef36151fcff11cf17f791"
+        },
+        "files": [
+            "config/graphql/types/.gitignore",
+            "config/packages/graphql.yaml",
+            "config/routes/graphql.yaml"
+        ]
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -559,6 +576,9 @@
     },
     "webmozart/assert": {
         "version": "1.9.1"
+    },
+    "webonyx/graphql-php": {
+        "version": "v0.13.9"
     },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"
