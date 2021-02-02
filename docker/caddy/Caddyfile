@@ -1,6 +1,11 @@
 {
-    experimental_http3
+    servers {
+        protocol {
+            experimental_http3
+        }
+    }
 }
+
 
 {$SERVER_NAME}
 
