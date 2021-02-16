@@ -48,15 +48,15 @@ import AddNoteModal from '../../notes/modal/AddNoteModal.vue'
   components: { AddNoteModal },
 })
 export default class HeaderApp extends Vue {
-  logoutUrl =  Routing.generate( 'mnh_user_logout' )
+  logoutUrl: string =  Routing.generate( 'mnh_user_logout' )
 
-  addNoteModal() {
+  addNoteModal(): any {
     this.$buefy.modal.open({
       parent: this,
       component: AddNoteModal,
     })
   }
-  get url () {
+  get url (): any {
     return this.logoutUrl
   }
 }

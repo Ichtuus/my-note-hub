@@ -2,23 +2,23 @@ import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 
 import modules from '../modules'
 import { mutations as m } from './constants'
-import {IUser} from '../../models/user'
-import {UserApi} from '../../../api/user/user'
+import UserApi from '../../../api/user/user'
+import {APIUser} from '../../../types/api/user/actions'
 
 @Module({ namespaced: true, name: modules.user, stateFactory: true })
 export default class UserModule extends VuexModule {
-    private _user: any = {
+    private _user: APIUser = {
         id: '',
-        username: '',
         email: '',
-        user_authenticated: false,
+        username: '',
         hub: {
             id: '',
             name: '',
             creation_datetime: ''
         },
-        isLoading: false
+        user_authenticated: false
     }
+    private _isLoading = false
 
     @Action
     async registration (payload: any): Promise<void> {
@@ -35,7 +35,7 @@ export default class UserModule extends VuexModule {
     async information (): Promise<void> {
         try {
             this.context.commit( m.IS_LOADING_UPDATE, true )
-            const {data} = await UserApi.userInformation()
+            const { data } = await UserApi.userInformation()
             this.context.commit( m.UPDATE_USER, data )
             this.context.commit( m.IS_LOADING_UPDATE, false )
         } catch (e) {
@@ -46,11 +46,11 @@ export default class UserModule extends VuexModule {
 
     @Mutation
     [m.IS_LOADING_UPDATE] (isLoading: boolean): void {
-        this._user.isLoading = isLoading
+        this._isLoading = isLoading
     }
 
     @Mutation
-    [m.UPDATE_USER] (data: IUser): void {
+    [m.UPDATE_USER] (data: APIUser): void {
         this._user = data
     }
 
@@ -63,6 +63,6 @@ export default class UserModule extends VuexModule {
     }
 
     get isLoading (): boolean {
-        return this._user.isLoading
+        return this._isLoading
     }
 }

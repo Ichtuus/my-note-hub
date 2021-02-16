@@ -20,7 +20,7 @@ import RegisterModal from './user/account/modal/RegisterModal.vue'
   components: { RegisterModal, LoginModal },
 })
 export default class Registration extends Vue {
-  registerModal () {
+  registerModal (): any {
     this.$buefy.modal.open({
       parent: this,
       component: RegisterModal,

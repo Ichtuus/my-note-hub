@@ -8,12 +8,13 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator'
-import NoteListItem from "./NoteListItem.vue"
+import NoteListItem from './NoteListItem.vue'
+import { APINote } from '../../types/api/note/actions'
 
 @Component({
   components: { NoteListItem }
 })
 export default class NoteList extends Vue {
-  @Prop( { type: Array, required: true } ) readonly notes!: any
+  @Prop( { type: Array, required: true } ) readonly notes!: APINote
 }
 </script>

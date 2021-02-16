@@ -38,13 +38,11 @@
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator'
 
-@Component({
-  components: {  }
-})
+@Component
 export default class LoginModal extends Vue {
-  loginUrl =  Routing.generate( 'mnh_user_login' )
+  loginUrl: string = Routing.generate( 'mnh_user_login' )
 
-  get url () {
+  get url (): string {
     return this.loginUrl
   }
 }

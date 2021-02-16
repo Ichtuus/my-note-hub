@@ -13,8 +13,8 @@
       <div v-if="!isLoading && notes.length > 0">
         <note-list :notes="notes"/>
       </div>
-      <div v-else-if="!isLoading" class="text-center">
-          <i class="fas fa-spinner fa-pulse fa-1x fa-fw"/>
+      <div v-else-if="!isLoading" class="has-text-centered">
+          <i class="fas fa-spinner fa-pulse fa-4x fa-fw"/>
       </div>
       <div v-else>
         Notes not found
@@ -25,12 +25,13 @@
 </template>
 
 <script lang="ts">
-import {Vue, Component} from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
 import NoteList from '../components/notes/NoteList.vue'
 import HeaderApp from '../components/globals/header/HeaderApp.vue'
-import {getModule} from "vuex-module-decorators";
-import NoteModule from "../store/modules/note";
-import UserModule from "../store/modules/user";
+import { getModule } from 'vuex-module-decorators'
+import NoteModule from '../store/modules/note'
+import UserModule from '../store/modules/user'
+import { APINote } from '../types/api/note/actions'
 
 @Component({
   components: { NoteList, HeaderApp },
@@ -40,15 +41,15 @@ export default class Home extends Vue {
     await getModule( NoteModule, this.$store ).get(this.userHubId)
   }
 
-  get userHubId () {
+  get userHubId (): string {
     return getModule( UserModule, this.$store ).userHubId
   }
 
-  get notes () {
+  get notes (): APINote[] {
     return getModule( NoteModule, this.$store ).notes
   }
 
-  get isLoading () {
+  get isLoading (): boolean {
     return getModule( NoteModule, this.$store ).isLoading
   }
 }

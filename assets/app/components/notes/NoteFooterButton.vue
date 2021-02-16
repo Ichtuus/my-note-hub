@@ -9,17 +9,15 @@
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator'
 import EditNoteModal from './modal/EditNoteModal.vue'
-import {INote} from "../../store/models/note";
-import {getModule} from "vuex-module-decorators";
-import NoteModule from "../../store/modules/note";
+import { getModule } from 'vuex-module-decorators'
+import NoteModule from '../../store/modules/note'
+import { APINote } from '../../types/api/note/actions'
 
-@Component({
-  components: {  }
-})
+@Component
 export default class NoteFooterButton extends Vue {
-  @Prop( { type: Object, required: true } ) readonly currentNote!: INote
+  @Prop( { type: Object, required: true } ) readonly currentNote!: APINote
 
-  patchNoteModal () {
+  patchNoteModal (): any {
     this.$buefy.modal.open({
       parent: this,
       component: EditNoteModal,
@@ -27,7 +25,7 @@ export default class NoteFooterButton extends Vue {
     })
   }
 
-  async deleteNote (note: INote) {
+  async deleteNote (note: APINote): Promise<any> {
     this.$buefy.dialog.confirm({
       title: 'Deleting this note',
       message: 'Are you sure you want to <b>delete</b> your this note ? This action cannot be undone.',
