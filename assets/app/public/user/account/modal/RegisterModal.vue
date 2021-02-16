@@ -52,12 +52,12 @@ import UserModule from "../../../../store/modules/user";
   components: {  },
 })
 export default class RegistrationModal extends Vue {
-  username = ''
-  email = ''
-  password = ''
+  private username: string = ''
+  private email: string = ''
+  private password: string = ''
 
   register () {
-    const payload = {
+    const payload: any = {
       username: this.username,
       email: this.email,
       password: this.password

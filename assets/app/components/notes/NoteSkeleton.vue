@@ -25,14 +25,13 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator'
-import { INote } from '../../store/models'
-import NoteFooterButton from "./NoteFooterButton.vue"
+import NoteFooterButton from './NoteFooterButton.vue'
+import { APINote } from '../../types/api/note/actions'
 
 @Component({
   components: { NoteFooterButton }
 })
 export default class NoteSkeleton extends Vue {
-  @Prop( { type: Object, required: true } ) readonly currentNote!: INote
-
+  @Prop( { type: Object, required: true } ) readonly currentNote!: APINote
 }
 </script>

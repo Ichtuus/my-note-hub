@@ -66,7 +66,9 @@ class NoteController extends AbstractController
     public function getNotes(Hub $hub)
     {
         $hubNotes = $this->NotesFinder->find($hub);
-        return $this->json($this->noteArraySerializer->listToArray($hubNotes));
+        return $this->json([
+            'data' => $this->noteArraySerializer->listToArray($hubNotes)
+        ]);
     }
 
     /**
@@ -88,7 +90,7 @@ class NoteController extends AbstractController
         $data = $serializer->deserialize($request->getContent(),Note::class, 'json');
         // TODO Improve handler of topics
         return $this->json([
-            'note' => $this->noteArraySerializer->toArray($this->noteCreationProcedure->createNote($hub, $this->getUser(), $data))
+            'data' => $this->noteArraySerializer->toArray($this->noteCreationProcedure->createNote($hub, $this->getUser(), $data))
         ]);
     }
 
@@ -108,7 +110,7 @@ class NoteController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         return $this->json([
-            "note" => $this->noteArraySerializer->toArray(
+            "data" => $this->noteArraySerializer->toArray(
                 $this->noteEditionProcedure->patchNoteProcess(
                     $data,
                     NoteType::class,

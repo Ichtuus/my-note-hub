@@ -30,7 +30,7 @@
       <b-field v-if="currentNote.first_link" label="first-link">
         <b-input
             type="text"
-            v-model="payload.note_first_link"
+            v-model="payload.first_link"
             placeholder="First link">
         </b-input>
       </b-field>
@@ -38,7 +38,7 @@
       <b-field v-if="currentNote.second_link" label="second-link">
         <b-input
             type="text"
-            v-model="payload.note_second_link"
+            v-model="payload.second_link"
             placeholder="Second link">
         </b-input>
       </b-field>
@@ -46,7 +46,7 @@
       <b-field v-if="currentNote.third_link" label="third-link">
         <b-input
             type="text"
-            v-model="payload.note_third_link"
+            v-model="payload.third_link"
             placeholder="Third link">
         </b-input>
       </b-field>
@@ -61,32 +61,31 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator'
-import {INote} from "../../../store/models/note";
-import {getModule} from "vuex-module-decorators";
-import NoteModule from "../../../store/modules/note";
+import { getModule } from 'vuex-module-decorators'
+import NoteModule from '../../../store/modules/note'
+import { APINote } from '../../../types/api/note/actions'
 
-@Component({
-})
+@Component
 export default class EditNoteModal extends Vue {
-  @Prop( { type: Object, required: true } ) readonly currentNote!: INote
+  @Prop( { type: Object, required: true } ) readonly currentNote!: APINote
 
-  payload = {
+  private payload: any = {
     note_title: '',
     note_content: '',
-    note_first_link: '',
-    note_second_link: '',
-    note_third_link: ''
+    first_link: '',
+    second_link: '',
+    third_link: ''
   }
 
-  mounted () {
+  mounted (): any {
     this.payload.note_title = this.currentNote.note_title
     this.payload.note_content = this.currentNote.note_content
-    this.payload.note_first_link = this.currentNote.first_link
-    this.payload.note_second_link = this.currentNote.second_link
-    this.payload.note_third_link = this.currentNote.third_link
+    this.payload.first_link = this.currentNote.first_link
+    this.payload.second_link = this.currentNote.second_link
+    this.payload.third_link = this.currentNote.third_link
   }
 
-  async patch () {
+  async patch (): Promise<any> {
     await getModule(NoteModule, this.$store).patch({noteId: this.currentNote.id, payload: this.payload})
   }
 }

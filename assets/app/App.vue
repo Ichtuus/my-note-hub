@@ -24,15 +24,19 @@ import {getModule} from 'vuex-module-decorators'
 import UserModule from './store/modules/user'
 
 @Component({
-  components: { Home, Registration },
-  computed: {
-    ...mapGetters( 'user', [ 'userAuthenticated', 'isLoading' ] )
-  },
+  components: { Home, Registration }
 })
 export default class App extends Vue {
   async beforeCreate( ) {
     sses()
     await getModule (UserModule, this.$store).information()
+  }
+
+  get userAuthenticated (): boolean {
+    return getModule(UserModule, this.$store).userAuthenticated
+  }
+  get isLoading (): boolean {
+    return getModule(UserModule, this.$store).isLoading
   }
 }
 </script>

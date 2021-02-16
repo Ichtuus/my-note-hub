@@ -1,19 +1,23 @@
-import Axios from 'axios'
-import {IAuthRequestInterface} from '../interfaces/user/authentification'
-import {IInformationRequestInterface} from '../interfaces/user/information'
+import Axios, {AxiosResponse} from 'axios'
+import {APIResponse} from "../../types/api";
+import {APIUser} from "../../types/api/user/actions";
 
-export abstract class UserApi {
-    private static userAxios = Axios.create()
 
-    static async registrationProcess (payload: any): Promise<any> {
-        return await this.userAxios.post<IAuthRequestInterface>( Routing.generate( 'mnh_user_register' ), {
-            username: payload.username,
-            email: payload.email,
-            password: payload.password
-        })
-    }
+function registrationProcess (payload: any): Promise<APIResponse<APIUser>> {
+    return Axios.post(Routing.generate( 'mnh_user_register' ), {
+        username: payload.username,
+        email: payload.email,
+        password: payload.password
+    }).then((response: AxiosResponse) => response.data)
+}
 
-    static async userInformation (): Promise<any> {
-        return await this.userAxios.get<IInformationRequestInterface>( Routing.generate( 'mnh_api_user_information' ))
-    }
+function userInformation (): Promise<any> {
+    return Axios.get(Routing.generate( 'mnh_api_user_information' ))
+        .then((response: AxiosResponse) => response.data)
+}
+
+
+export default {
+    registrationProcess,
+    userInformation
 }

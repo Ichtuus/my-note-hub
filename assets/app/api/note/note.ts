@@ -1,9 +1,9 @@
-import axios, {AxiosResponse} from 'axios'
-import {INoteAddRequestInterface} from '../interfaces/note/add'
-import {INote} from '../../store/models/note'
+import Axios, {AxiosResponse} from 'axios'
+import { APINote } from '../../types/api/note/actions'
+import { APIResponse } from '../../types/api'
 
-function addNoteProcess (newNote: any, id: string): Promise<any> {
-    return axios.post( Routing.generate( 'my_note_hub_api_note_add', {id}), {
+function addNoteProcess (newNote: any, id: string): Promise<APIResponse<APINote>> {
+    return Axios.post(Routing.generate( 'my_note_hub_api_note_add', {id}), {
         note_title: newNote.note_title,
         note_content: newNote.note_content,
         note_first_link: newNote.note_first_link,
@@ -11,19 +11,19 @@ function addNoteProcess (newNote: any, id: string): Promise<any> {
         note_third_link: newNote.note_third_link
     }).then((response: AxiosResponse) => response.data)
 }
-function getNoteProcess (hubId: string) {
-    return axios.get(Routing.generate('my_note_hub_api_note_get', { id: hubId }
-    )).then((response: AxiosResponse) => response.data)
+function getNoteProcess (hubId: string): Promise<APIResponse<APINote>> {
+    return Axios.get(Routing.generate('my_note_hub_api_note_get', { id: hubId }))
+        .then((response: AxiosResponse) => response.data)
 }
 
-function patchNoteProcess ({noteId, payload}: {noteId: string, payload: any}) {
-    return axios.patch(Routing.generate('my_note_hub_api_note_patch', { id: noteId }), payload
-    ).then((response: AxiosResponse) => response.data)
+function patchNoteProcess ({noteId, payload}: {noteId: string, payload: any}): Promise<APIResponse<APINote>>  {
+    return Axios.patch(Routing.generate('my_note_hub_api_note_patch', { id: noteId }), payload)
+        .then((response: AxiosResponse) => response.data)
 }
 
-function deleteNoteProcess ({noteId}: {noteId: string}) {
-    return axios.delete(Routing.generate('my_note_hub_api_note_delete', { id: noteId })
-    ).then((response: AxiosResponse) => response.data)
+function deleteNoteProcess ({noteId}: {noteId: string}): Promise<any> {
+    return Axios.delete(Routing.generate('my_note_hub_api_note_delete', { id: noteId }))
+        .then((response: AxiosResponse) => response.data)
 }
 
 export default {
