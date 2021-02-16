@@ -37,7 +37,9 @@ class UserController extends AbstractController
         if(!$this->getUser()) {
             return new JsonResponse('User must be logged', Response::HTTP_UNAUTHORIZED);
         }
-        return $this->json($this->userArraySerializer->toArray($this->getUser()));
+        return $this->json([
+            'data' => $this->userArraySerializer->toArray($this->getUser())
+        ]);
     }
 
 }
