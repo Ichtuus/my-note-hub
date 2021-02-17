@@ -1,40 +1,35 @@
 <template>
-  <section>
-    <b-table :data="notes">
-      <b-table-column field="note_title" label="Title" v-slot="props">
-        {{ props.row.note_title }}
-      </b-table-column>
-
-      <b-table-column field="creation_datetime" label="Date" v-slot="props">
-        {{ props.row.creation_datetime }}
-      </b-table-column>
-
-      <b-table-column field="note_content" label="Content" sortable v-slot="props">
-        {{ props.row.note_content }}
-      </b-table-column>
-
-      <b-table-column field="first_link" label="First link" sortable v-slot="props">
-        <span type="is-info">{{ props.row.first_link }}</span>
-      </b-table-column>
-
-      <b-table-column field="second_link" label="Second link" sortable v-slot="props">
-        <span type="is-info">{{ props.row.second_link }}</span>
-      </b-table-column>
-
-      <b-table-column field="third_link" label="Third link" sortable v-slot="props">
-        <span type="is-info">{{ props.row.third_link }}</span>
-      </b-table-column>
-    </b-table>
-  </section>
+  <note-skeleton :current-note="note">
+    <template v-slot:header>
+      {{ note.note_title }}
+    </template>
+    <template v-slot:content-text>
+      {{ note.note_content }}
+    </template>
+    <template v-slot:first-content-link>
+      <a :href="note.first_link">{{ note.first_link }}</a>
+    </template>
+    <template v-slot:second-content-link>
+      <a :href="note.second_link">{{ note.second_link }}</a>
+    </template>
+    <template v-slot:third-content-link>
+      <a :href="note.third_link">{{ note.third_link }}</a>
+    </template>
+    <template v-slot:date>
+      <time datetime="2016-1-1">{{ note.creation_datetime }}</time>
+    </template>
+  </note-skeleton>
 </template>
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator'
+import NoteSkeleton from '../../NoteSkeleton.vue'
+import { APINote } from '../../../../types/api/note/actions'
 
 @Component({
-  components: { }
+  components: { NoteSkeleton }
 })
-export default class NoteList extends Vue {
-  @Prop( { type: Array, required: true } ) readonly notes: any
+export default class NoteGridItem extends Vue {
+  @Prop( { type: Object, required: true } ) readonly note!: APINote
 }
 </script>

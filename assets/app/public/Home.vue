@@ -46,7 +46,7 @@ import { APINote } from '../types/api/note/actions'
   components: { NoteList, HeaderApp },
 })
 export default class Home extends Vue {
-  public layout = 'grid'
+  public layout: string = 'grid'
 
   async mounted () {
     await getModule( NoteModule, this.$store ).get(this.userHubId)
