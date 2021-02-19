@@ -1,9 +1,7 @@
 <template>
   <div class="columns">
-    <div v-for="note in notes" :key="note.id" class="column mt-6">
-      <note-list-item v-if="layout === 'list'" :notes="notes"/>
-      <note-grid-item v-if="layout === 'grid'" :note="note"/>
-    </div>
+    <note-grid-item v-for="note in notes" :key="note.id" class="column mt-6" v-if="layout === 'grid'" :note="note"/>
+    <note-list-item class="column mt-12" v-if="layout === 'list'" :notes="notes"/>
   </div>
 </template>
 

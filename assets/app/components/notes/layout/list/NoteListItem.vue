@@ -34,5 +34,12 @@ import {Vue, Component, Prop} from 'vue-property-decorator'
 @Component
 export default class NoteListItem extends Vue {
   @Prop( { type: Array, required: true } ) readonly notes: any
+  columns = [
+      {note_title:'note_title', label: 'Title'},
+      {creation_datetime: 'creation_datetime', label: 'Date'},
+      {note_content: 'note_content', label: 'Content'},
+      {first_link: 'first_link', label: 'First link'},
+      {second_link: 'second_link', label: 'Second link'},
+      {third_link:'third_link', label: 'Third link'}]
 }
 </script>
