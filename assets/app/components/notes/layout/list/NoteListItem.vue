@@ -14,15 +14,19 @@
       </b-table-column>
 
       <b-table-column field="first_link" label="First link" sortable v-slot="props">
-        <span type="is-info">{{ props.row.first_link }}</span>
+        <span type="is-info">{{ props.row.note_first_link }}</span>
       </b-table-column>
 
       <b-table-column field="second_link" label="Second link" sortable v-slot="props">
-        <span type="is-info">{{ props.row.second_link }}</span>
+        <span type="is-info">{{ props.row.note_second_link }}</span>
       </b-table-column>
 
       <b-table-column field="third_link" label="Third link" sortable v-slot="props">
-        <span type="is-info">{{ props.row.third_link }}</span>
+        <span type="is-info">{{ props.row.note_third_link }}</span>
+      </b-table-column>
+
+      <b-table-column field="actions" label="Actions" v-slot="props">
+        <note-footer-button :current-note="props.row"/>
       </b-table-column>
     </b-table>
   </section>
@@ -30,16 +34,12 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator'
+import NoteFooterButton from '../../NoteFooterButton.vue'
 
-@Component
+@Component({
+  components: { NoteFooterButton }
+})
 export default class NoteListItem extends Vue {
-  @Prop( { type: Array, required: true } ) readonly notes: any
-  columns = [
-      {note_title:'note_title', label: 'Title'},
-      {creation_datetime: 'creation_datetime', label: 'Date'},
-      {note_content: 'note_content', label: 'Content'},
-      {first_link: 'first_link', label: 'First link'},
-      {second_link: 'second_link', label: 'Second link'},
-      {third_link:'third_link', label: 'Third link'}]
+  @Prop({type: Array, required: true}) readonly notes: any
 }
 </script>

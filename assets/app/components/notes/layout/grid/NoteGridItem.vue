@@ -7,13 +7,13 @@
       {{ note.note_content }}
     </template>
     <template v-slot:first-content-link>
-      <a :href="note.first_link">{{ note.first_link }}</a>
+      <a :href="note.note_first_link">{{ note.note_first_link }}</a>
     </template>
     <template v-slot:second-content-link>
-      <a :href="note.second_link">{{ note.second_link }}</a>
+      <a :href="note.note_second_link">{{ note.note_second_link }}</a>
     </template>
     <template v-slot:third-content-link>
-      <a :href="note.third_link">{{ note.third_link }}</a>
+      <a :href="note.note_third_link">{{ note.note_third_link }}</a>
     </template>
     <template v-slot:date>
       <time datetime="2016-1-1">{{ note.creation_datetime }}</time>

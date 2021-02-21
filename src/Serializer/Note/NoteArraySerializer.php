@@ -31,9 +31,9 @@ class NoteArraySerializer
             'note_title' => $note->getNoteTitle(),
             'note_content' => $note->getNoteContent(),
             'creation_datetime' => $note->getCreationDatetime(),
-            'first_link' => $note->getNoteFirstLink(),
-            'second_link' => $note->getNoteSecondLink(),
-            'third_link' => $note->getNoteThirdLink()
+            'note_first_link' => $note->getNoteFirstLink(),
+            'note_second_link' => $note->getNoteSecondLink(),
+            'note_third_link' => $note->getNoteThirdLink()
         ];
     }
 }

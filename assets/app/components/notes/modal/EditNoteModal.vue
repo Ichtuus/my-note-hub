@@ -27,26 +27,26 @@
         </b-input>
       </b-field>
 
-      <b-field v-if="currentNote.first_link" label="first-link">
+      <b-field v-if="currentNote.note_first_link" label="first-link">
         <b-input
             type="text"
-            v-model="payload.first_link"
+            v-model="payload.note_first_link"
             placeholder="First link">
         </b-input>
       </b-field>
 
-      <b-field v-if="currentNote.second_link" label="second-link">
+      <b-field v-if="currentNote.note_second_link" label="second-link">
         <b-input
             type="text"
-            v-model="payload.second_link"
+            v-model="payload.note_second_link"
             placeholder="Second link">
         </b-input>
       </b-field>
 
-      <b-field v-if="currentNote.third_link" label="third-link">
+      <b-field v-if="currentNote.note_third_link" label="third-link">
         <b-input
             type="text"
-            v-model="payload.third_link"
+            v-model="payload.note_third_link"
             placeholder="Third link">
         </b-input>
       </b-field>
@@ -72,17 +72,17 @@ export default class EditNoteModal extends Vue {
   private payload: any = {
     note_title: '',
     note_content: '',
-    first_link: '',
-    second_link: '',
-    third_link: ''
+    note_first_link: '',
+    note_second_link: '',
+    note_third_link: ''
   }
 
   mounted (): any {
     this.payload.note_title = this.currentNote.note_title
     this.payload.note_content = this.currentNote.note_content
-    this.payload.first_link = this.currentNote.first_link
-    this.payload.second_link = this.currentNote.second_link
-    this.payload.third_link = this.currentNote.third_link
+    this.payload.note_first_link = this.currentNote.note_first_link
+    this.payload.note_second_link = this.currentNote.note_second_link
+    this.payload.note_third_link = this.currentNote.note_third_link
   }
 
   async patch (): Promise<any> {

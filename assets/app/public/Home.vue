@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import NoteList from '../components/notes/NoteList.vue'
+import NoteList from '../components/notes/layout/NoteList.vue'
 import HeaderApp from '../components/globals/header/HeaderApp.vue'
 import { getModule } from 'vuex-module-decorators'
 import NoteModule from '../store/modules/note'
