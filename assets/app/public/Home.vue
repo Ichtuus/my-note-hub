@@ -1,9 +1,9 @@
 <template>
-  <div class="columns">
-    <div class="column is-1"></div>
-    <div class="column is-10">
-      <!--  HEADER  -->
-      <header-app class="mb-6"/>
+  <div>
+
+    <div v-if="userAuthenticated && !isLoadingUser">
+
+      <!--  SWITCH LAYOUT  -->
       <div class="columns">
         <div class="column is-12">
           <div class="is-pulled-right">
@@ -45,13 +45,14 @@
         Layout error
       </div>
     </div>
-    <div class="column is-1"></div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { getModule } from 'vuex-module-decorators'
+// @ts-ignore
+import sses from '../tools/note/manage-topic'
 
 import NoteModule from '../store/modules/note'
 import UserModule from '../store/modules/user'
@@ -63,14 +64,16 @@ import { APIHub } from '../types/api/hub/actions'
 import NoteList from '../components/notes/layout/NoteList.vue'
 import HeaderApp from '../components/globals/header/HeaderApp.vue'
 import Hubs from '../components/hubs/Hubs.vue'
+import Registration from '../public/Registration.vue'
 
 @Component({
-  components: { NoteList, HeaderApp, Hubs },
+  components: { NoteList, HeaderApp, Hubs, Registration },
 })
 export default class Home extends Vue {
   public layout: string = 'grid'
 
   async mounted () {
+    sses()
     await getModule( NoteModule, this.$store ).getNotes(this.userHubId)
     await getModule( HubModule, this.$store ).getHubs()
   }
@@ -89,6 +92,14 @@ export default class Home extends Vue {
 
   get hubs (): APIHub[] {
     return getModule( HubModule, this.$store ).hubs
+  }
+
+  get userAuthenticated (): boolean {
+    return getModule(UserModule, this.$store).userAuthenticated
+  }
+
+  get isLoadingUser (): boolean {
+    return getModule(UserModule, this.$store).isLoading
   }
 }
 </script>

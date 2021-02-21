@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <div class="column">
+    <div class="column column pl-0 pr-0">
       <b-navbar>
         <template slot="brand">
           <b-navbar-item>
