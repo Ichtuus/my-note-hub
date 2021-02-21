@@ -23,7 +23,15 @@
         </div>
       </div>
       <div v-else-if="layout === 'list'">
-        <note-list :layout="layout" :notes="notes"/>
+        <div v-if="!isLoading && notes.length > 0">
+          <note-list :layout="layout" :notes="notes"/>
+        </div>
+        <div v-else-if="!isLoading" class="has-text-centered">
+          <i class="fas fa-spinner fa-pulse fa-4x fa-fw"/>
+        </div>
+        <div v-else>
+          Notes not found
+        </div>
       </div>
       <div v-else>
         Layout error
