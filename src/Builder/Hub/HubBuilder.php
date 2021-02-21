@@ -23,6 +23,7 @@ class HubBuilder
     {
         $hub = new Hub();
         $hub->setName($this->hubHelper->customHubName($user));
+        $hub->setCreator($user);
 
         return $hub;
     }
