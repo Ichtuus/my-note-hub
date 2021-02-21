@@ -23,7 +23,15 @@
         </div>
       </div>
       <div v-else-if="layout === 'list'">
-        <note-list :layout="layout" :notes="notes"/>
+        <div v-if="!isLoading && notes.length > 0">
+          <note-list :layout="layout" :notes="notes"/>
+        </div>
+        <div v-else-if="!isLoading" class="has-text-centered">
+          <i class="fas fa-spinner fa-pulse fa-4x fa-fw"/>
+        </div>
+        <div v-else>
+          Notes not found
+        </div>
       </div>
       <div v-else>
         Layout error
@@ -35,7 +43,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import NoteList from '../components/notes/NoteList.vue'
+import NoteList from '../components/notes/layout/NoteList.vue'
 import HeaderApp from '../components/globals/header/HeaderApp.vue'
 import { getModule } from 'vuex-module-decorators'
 import NoteModule from '../store/modules/note'

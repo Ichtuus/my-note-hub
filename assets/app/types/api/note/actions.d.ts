@@ -3,7 +3,7 @@ export interface APINote {
     note_title: string,
     note_content: string,
     creation_datetime: string,
-    first_link: string,
-    second_link: string,
-    third_link: string
+    note_first_link: string,
+    note_second_link: string,
+    note_third_link: string
 }
