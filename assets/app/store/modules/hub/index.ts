@@ -14,9 +14,8 @@ export default class HubModule extends VuexModule {
     async getHubs (): Promise<void> {
         try {
             this.context.commit( m.IS_LOADING, true )
-            const data = await HubApi.getHubsProcess()
-            console.log('fdata', data)
-            this.context.commit( m.LOAD_HUBS, data )
+            const { data } = await HubApi.getHubsProcess()
+            this.context.commit( m.LOAD_HUBS, { data } )
             this.context.commit( m.IS_LOADING, false )
         } catch (e) {
             console.log('e', e)
@@ -37,7 +36,7 @@ export default class HubModule extends VuexModule {
     }
 
     @Mutation
-    [m.LOAD_HUBS] (data: APIHub[]): void {
+    [m.LOAD_HUBS] ({ data }: any): void {
         this._hubs = data
     }
 }
