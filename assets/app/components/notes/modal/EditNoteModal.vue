@@ -86,7 +86,7 @@ export default class EditNoteModal extends Vue {
   }
 
   async patch (): Promise<any> {
-    await getModule(NoteModule, this.$store).patch({noteId: this.currentNote.id, payload: this.payload})
+    await getModule(NoteModule, this.$store).patchNote({noteId: this.currentNote.id, payload: this.payload})
   }
 }
 </script>

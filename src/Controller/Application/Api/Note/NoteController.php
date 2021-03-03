@@ -63,7 +63,7 @@ class NoteController extends AbstractController
      * @param Hub $hub
      * @return JsonResponse
      */
-    public function getNotes(Hub $hub)
+    public function getHubNotes(Hub $hub)
     {
         $hubNotes = $this->NotesFinder->find($hub);
         return $this->json([

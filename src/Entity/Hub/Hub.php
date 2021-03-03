@@ -59,7 +59,7 @@ class Hub
      * @ORM\ManyToOne(targetEntity="App\Entity\User\User", inversedBy="user")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
-    private $user;
+    private $creator;
 
     /**
      * @var HubUserRole[]
@@ -173,13 +173,12 @@ class Hub
     /**
      * Set user
      *
-     * @param User $user
-     *
+     * @param User $creator
      * @return Hub
      */
-    public function setUser(User $user)
+    public function setCreator(User $creator)
     {
-        $this->user = $user;
+        $this->creator = $creator;
 
         return $this;
     }
@@ -189,9 +188,9 @@ class Hub
      *
      * @return User
      */
-    public function getUser()
+    public function getCreator()
     {
-        return $this->user;
+        return $this->creator;
     }
 
 }

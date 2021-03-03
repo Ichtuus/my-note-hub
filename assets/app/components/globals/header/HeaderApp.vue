@@ -1,12 +1,14 @@
 <template>
   <div class="columns">
-    <div class="column">
+    <div class="column column pl-0 pr-0">
       <b-navbar>
         <template slot="brand">
           <b-navbar-item>
-            <span class="header-label header-label-1">My</span>
-            <span class="header-label header-label-2">Note</span>
-            <span class="header-label header-label-3">Hub</span>
+            <router-link :to="{ name: 'Home' }">
+              <span class="header-label header-label-1">My</span>
+              <span class="header-label header-label-2">Note</span>
+              <span class="header-label header-label-3">Hub</span>
+            </router-link>
           </b-navbar-item>
         </template>
         <template slot="start">

@@ -60,10 +60,6 @@ class UserCreationProcedure
      */
     public function processForUser($data, string $role): User
     {
-//        // TODO move in builder
-//        $result = new AuthUserProcessResult();
-
-
         $user = $this->userBuilder->buildUser($data);
         $hub = $this->createHubForUser($user);
         $this->bindUserToHub($hub, $user, $role);

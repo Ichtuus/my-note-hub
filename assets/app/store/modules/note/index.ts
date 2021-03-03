@@ -12,7 +12,7 @@ export default class NoteModule extends VuexModule {
     private _isLoading = false
 
     @Action
-    async add ({ newNote, id }: { newNote: any, id: string }): Promise<void> {
+    async addNote ({ newNote, id }: { newNote: any, id: string }): Promise<void> {
         try {
             const { data } = await NoteApi.addNoteProcess(newNote, id)
             this.context.commit(m.ADD_NOTE_LIST, { data })
@@ -22,17 +22,20 @@ export default class NoteModule extends VuexModule {
     }
 
     @Action
-    async get (hubId: string): Promise<void> {
+    async getNotes (hubId: string): Promise<void> {
         try {
+            this.context.commit(m.IS_LOADING, { isLoading: true })
             const { data } = await NoteApi.getNoteProcess(hubId)
             this.context.commit(m.LOAD_NOTES, { data })
+            this.context.commit(m.IS_LOADING, { isLoading: false })
         } catch (e) {
             console.log('e', e.response)
+            this.context.commit(m.IS_LOADING, { isLoading: false })
         }
     }
 
     @Action
-    async patch ({ noteId, payload }: { noteId: string, payload: any }): Promise<void> {
+    async patchNote ({ noteId, payload }: { noteId: string, payload: any }): Promise<void> {
         this.context.commit(m.IS_LOADING, { isLoading: true })
         try {
             const { data } = await NoteApi.patchNoteProcess({ noteId, payload })
@@ -44,7 +47,7 @@ export default class NoteModule extends VuexModule {
         }
     }
     @Action
-    async delete ({ noteId }: { noteId: string }): Promise<void> {
+    async deleteNote ({ noteId }: { noteId: string }): Promise<void> {
         this.context.commit(m.IS_LOADING, { isLoading: true })
         try {
             await NoteApi.deleteNoteProcess({ noteId })

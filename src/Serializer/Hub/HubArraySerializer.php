@@ -29,7 +29,8 @@ class HubArraySerializer
         return [
             'id' => $hub->getId(),
             'name' => $hub->getName(),
-            'creation_datetime' => $hub->getCreationDatetime()
+            'creation_datetime' => $hub->getCreationDatetime(),
+            'creator' => $hub->getCreator()->getUsername()
         ];
     }
 }

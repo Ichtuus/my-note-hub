@@ -34,7 +34,7 @@ export default class NoteFooterButton extends Vue {
       hasIcon: true,
       onConfirm: async () => {
         console.log(note)
-        await getModule(NoteModule, this.$store).delete({ noteId: note.id })
+        await getModule(NoteModule, this.$store).deleteNote({ noteId: note.id })
       }
     })
   }

@@ -12,6 +12,14 @@ const router = new Router({
                 // @ts-ignore
                 return import('../public/Home.vue');
             },
+        },
+        {
+            path: '/hubs/:id',
+            name: 'hubs_show',
+            component: () => {
+                // @ts-ignore
+                return import('../components/hubs/show/Hub.vue')
+            }
         }
     ]
 })
