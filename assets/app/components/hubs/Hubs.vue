@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator'
-import { APIHub } from '../../types/api/hub/actions'
+import { APIHubs } from '../../types/api/hub/actions'
 
 import HubsList from './layout/HubList.vue'
 
@@ -14,7 +14,7 @@ import HubsList from './layout/HubList.vue'
   components: { HubsList }
 })
 export default class Hubs extends Vue {
-  @Prop( { type: Array, required: true } ) readonly hubs!: APIHub[]
+  @Prop( { type: Array, required: true } ) readonly hubs!: APIHubs[]
 
 }
 </script>
