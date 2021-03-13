@@ -1,4 +1,3 @@
-import { APIDatetime } from '../global/actions'
 import {APIUserCreator, APIUserRole} from '../user/actions'
 
 export interface APIHubs {
@@ -10,7 +9,7 @@ export interface APIHubs {
 
 export interface APIHub {
     id: string,
-    creationDatetime: APIDatetime,
+    creationDatetime: string,
     name: string,
     hubsUserRoles: APIUserRole,
     creator: APIUserCreator
