@@ -9,9 +9,10 @@ import router from './router'
 import { Route } from 'vue-router'
 
 import 'buefy/dist/buefy.css'
-
+import { createDateFilter } from 'vue-date-fns'
 
 Vue.use(Buefy)
+Vue.filter("date", createDateFilter('d MMMM yyyy'));
 
 axios.defaults.withCredentials = true
 
