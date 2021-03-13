@@ -6,7 +6,7 @@
         "moduleResolution": "Node",
         "types": [
             "@types/jest",
-            "node"
+            "@types/node"
         ],
         "typeRoots": [
             "./assets/app/types",
