@@ -29,7 +29,6 @@ export default class HubModule extends VuexModule {
         try {
             this.context.commit( m.IS_LOADING, true )
             const data = await HubApi.getHubProcess(hubId)
-            console.log('data', data)
             this.context.commit( m.LOAD_HUB_INFORMATION, data )
             this.context.commit( m.IS_LOADING, false )
         } catch (e) {
