@@ -51,6 +51,7 @@
     "sass-loader": "^7.0.1",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.6",
+    "vue-date-fns": "^2.0.1",
     "vue-lodash": "^2.1.2",
     "vue-next": "0.0.1",
     "vue-property-decorator": "^9.0.2",

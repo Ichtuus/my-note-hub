@@ -3,7 +3,7 @@
     <router-link :to="{ name: 'hubs_show', params: { id: hub.id } }">
       <article class="tile is-child box notification is-primary">
         <p class="title"> {{ hub.name }} </p>
-        <p class="subtitle">{{ hub.creator }} | {{ hub.creation_datetime }}</p>
+        <p class="subtitle">{{ hub.creator }} | <span v-if="hub.creation_datetime"><small>{{ new Date(hub.creation_datetime) | date }}</small></span></p>
         <div class="content">
           <!-- Content -->
         </div>
