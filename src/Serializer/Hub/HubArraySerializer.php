@@ -33,4 +33,9 @@ class HubArraySerializer
             'creator' => $hub->getCreator()->getUsername()
         ];
     }
+
+//    public function classObject(Hub $hub)
+//    {
+//        return
+//    }
 }

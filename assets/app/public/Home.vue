@@ -22,7 +22,7 @@
           <note-list :layout="layout" :notes="notes"/>
         </div>
         <div v-else-if="isLoading && !notes.length > 0" class="has-text-centered">
-          <i class="fas fa-spinner fa-pulse fa-4x fa-fw"/>
+          <i class="fas fa-spinner fa-pulse fa-2x fa-fw"/>
         </div>
         <div v-else>
           Sorry we have doesn't found note in this hub
@@ -35,7 +35,7 @@
           <note-list :layout="layout" :notes="notes"/>
         </div>
         <div v-else-if="isLoading && !notes.length > 0" class="has-text-centered">
-          <i class="fas fa-spinner fa-pulse fa-4x fa-fw"/>
+          <i class="fas fa-spinner fa-pulse fa-2x fa-fw"/>
         </div>
         <div v-else>
           Sorry we have doesn't found note in this hub
@@ -59,7 +59,7 @@ import UserModule from '../store/modules/user'
 import HubModule from '../store/modules/hub'
 
 import { APINote } from '../types/api/note/actions'
-import { APIHub } from '../types/api/hub/actions'
+import { APIHubs } from '../types/api/hub/actions'
 
 import NoteList from '../components/notes/layout/NoteList.vue'
 import HeaderApp from '../components/globals/header/HeaderApp.vue'
@@ -90,7 +90,7 @@ export default class Home extends Vue {
     return getModule( NoteModule, this.$store ).isLoading
   }
 
-  get hubs (): APIHub[] {
+  get hubs (): APIHubs[] {
     return getModule( HubModule, this.$store ).hubs
   }
 
