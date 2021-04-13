@@ -1,0 +1,13 @@
+language: php
+
+php:
+  - 7.4
+
+
+before_script:
+  - docker-compose up -d
+  - docker-compose run --rm php composer install
+
+script:
+  - docker-compose run --rm php ./bin/phpunit
+
