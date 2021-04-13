@@ -14,9 +14,12 @@
         <template slot="start">
           <b-navbar-item href="#">Home</b-navbar-item>
           <b-navbar-item href="#">Documentation</b-navbar-item>
-          <b-navbar-dropdown label="Info">
-            <b-navbar-item href="#">About</b-navbar-item>
-            <b-navbar-item href="#">Contact</b-navbar-item>
+          <b-navbar-dropdown :label="currentHub.name">
+            <router-link :to="{ name: 'hub_show_settings', params: { id: currentHub.id }  }">
+            <b-navbar-item>
+              Settings
+            </b-navbar-item>
+            </router-link>
           </b-navbar-dropdown>
           <b-navbar-item style="margin-left: 260px">
             <div class="buttons">
@@ -45,6 +48,9 @@
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator'
 import AddNoteModal from '../../notes/modal/AddNoteModal.vue'
+import {APIHub} from '../../../types/api/hub/actions'
+import {getModule} from 'vuex-module-decorators'
+import HubModule from '../../../store/modules/hub'
 
 @Component({
   components: { AddNoteModal },
@@ -60,6 +66,10 @@ export default class HeaderApp extends Vue {
   }
   get url (): any {
     return this.logoutUrl
+  }
+
+  get currentHub (): APIHub {
+    return getModule(HubModule, this.$store).hub
   }
 }
 </script>

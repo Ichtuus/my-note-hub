@@ -75,6 +75,7 @@ export default class Home extends Vue {
   async mounted () {
     sses()
     await getModule( NoteModule, this.$store ).getNotes(this.userHubId)
+    await getModule( HubModule, this.$store ).getHub(this.userHubId)
     await getModule( HubModule, this.$store ).getHubs()
   }
 

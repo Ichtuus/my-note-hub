@@ -8,18 +8,17 @@ const router = new Router({
         {
             path: '/',
             name: 'Home',
-            component: () => {
-                // @ts-ignore
-                return import('../public/Home.vue');
-            },
+            component: () => import('../public/Home.vue')
         },
         {
-            path: '/hubs/:id',
+            path: '/hub/:id',
             name: 'hubs_show',
-            component: () => {
-                // @ts-ignore
-                return import('../components/hubs/show/Hub.vue')
-            }
+            component: () => import('../components/hubs/show/Hub.vue')
+        },
+        {
+            path: '/hub/:id/settings',
+            name: 'hub_show_settings',
+            component: () => import('../components/settings/hub/HubSettings.vue')
         }
     ]
 })
