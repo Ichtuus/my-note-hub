@@ -69,6 +69,10 @@ class User implements UserInterface
      */
     private $hubsUserRoles;
     /**
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     */
+    private $registrationToken;
+    /**
      * User constructor.
      */
     public function __construct()
@@ -165,9 +169,24 @@ class User implements UserInterface
      */
     public function setApiToken($apiToken)
     {
-        $this->$apiToken = $apiToken;
+        $this->apiToken = $apiToken;
     }
 
+    /**
+     * @return string
+     */
+    public function getRegistrationToken()
+    {
+        return $this->registrationToken;
+    }
+
+    /**
+     * @param $registrationToken
+     */
+    public function setRegistrationToken($registrationToken)
+    {
+        $this->registrationToken = $registrationToken;
+    }
 
     /**
      * @return Hub
