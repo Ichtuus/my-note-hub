@@ -12,7 +12,7 @@
           </div>
         </div>
       </div>
-
+      <div class="base-app"></div>
       <!--  HUBS LIST  -->
       <hubs :hubs="hubs"/>
 

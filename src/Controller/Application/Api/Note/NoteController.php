@@ -88,10 +88,15 @@ class NoteController extends AbstractController
     public function add(Request $request, Hub $hub, SerializerInterface $serializer, PublisherInterface $publisher)
     {
         $data = $serializer->deserialize($request->getContent(),Note::class, 'json');
-        // TODO Improve handler of topics
-        return $this->json([
-            'data' => $this->noteArraySerializer->toArray($this->noteCreationProcedure->createNote($hub, $this->getUser(), $data))
-        ]);
+
+        $update = new Update('my-note-hub.localhost/note', "[]");
+
+        $publisher($update);
+        return $this->json(['message' => 'publish']);
+//        // TODO Improve handler of topics
+//        return $this->json([
+//            'data' => $this->noteArraySerializer->toArray($this->noteCreationProcedure->createNote($hub, $this->getUser(), $data))
+//        ]);
     }
 
     /**
