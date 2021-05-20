@@ -40,6 +40,9 @@ class UserBuilder
         $email ? $user->setEmail($email) : null;
         $username ? $user->setUsername($username) : null;
 
+        // Create an unique random token
+        $user->setRegistrationToken(md5(uniqid(rand(), true)));
+
         return $user;
     }
 

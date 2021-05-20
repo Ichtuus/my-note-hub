@@ -26,6 +26,8 @@ services:
     App\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
-
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Message\User\Registration\RegistrationConfirmationMailHandler:
+        tags: ['messenger.message_handler']

@@ -8,7 +8,10 @@ framework:
             # async: '%env(MESSENGER_TRANSPORT_DSN)%'
             # failed: 'doctrine://default?queue_name=failed'
             # sync: 'sync://'
+            async_queue:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%/%2f/async_queue'
+            mnh-register-confirmation-email:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%/%2f/mnh-register-confirmation-email'
 
         routing:
-            # Route your messages to the transports
-            # 'App\Message\YourMessage': async
+            'App\Message\Contracts\MessengerInterface': async_queue
